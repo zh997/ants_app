@@ -10,6 +10,7 @@
 				<text class="tabbar-item-text" :class="{'tabbar-item-text-active':current === index}">{{item.text}}</text>
 			</view>
 		</view>
+		<view class="page-bg"></view>
 	</view>
 </template>
 
@@ -27,7 +28,7 @@
 				items: [
 					{
 						icon: require('../../static/tabbar_icon1@2x.png'),
-						selected_icon: require('../../static/tabbar_icon1@2x.png'),
+						selected_icon: require('../../static/tabbar_icon1_selected@2x.png'),
 						text: 'SWAPANT',
 						path: '/pages/index/index'
 					},
@@ -39,19 +40,19 @@
 					},
 					{
 						icon:  require('../../static/tabbar_icon3@2x.png'),
-						selected_icon:  require('../../static/tabbar_icon3@2x.png'),
+						selected_icon:  require('../../static/tabbar_icon3_selected@2x.png'),
 						text: '量化交易',
 						path: '/pages/index/index'
 					},
 					{
 						icon:  require('../../static/tabbar_icon4@2x.png'),
-						selected_icon:  require('../../static/tabbar_icon4@2x.png'),
+						selected_icon:  require('../../static/tabbar_icon4_selected@2x.png'),
 						text: '资产',
 						path: '/pages/index/index'
 					},
 					{
 						icon:  require('../../static/tabbar_icon5@2x.png'),
-						selected_icon: require('../../static/tabbar_icon5@2x.png'),
+						selected_icon: require('../../static/tabbar_icon5_selected@2x.png'),
 						text: '我的',
 						path: '/pages/index/index'
 					}

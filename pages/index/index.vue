@@ -5,7 +5,6 @@
 	 		<text class="title">{{title}}</text>
 	 	</view>
 	 </view>
-	
 </template>
 
 <script>
@@ -25,6 +24,7 @@
 </script>
 
 <style>
+	
 	.content {
 		display: flex;
 		flex-direction: column;
