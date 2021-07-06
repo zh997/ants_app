@@ -3,6 +3,8 @@
 		<view class="route-view">
 			<Index v-if="current === 0"/>
 			<Exchange v-if="current === 1"/>
+			<Property v-if="current === 3"/>
+			<My v-if="current === 4"/>
 		</view>
 		<view class="tabbar-container">
 			<view class="tabbar-item" v-for="item,index in items" :key="index" @click="onSwitchTab(item, index)">
@@ -17,11 +19,15 @@
 <script>
 	import Index from '@/pages/index/index.vue';
 	import Exchange from '@/pages/exchange/exchange.vue';
+	import Property from '@/pages/property/property.vue';
+	import My from '@/pages/my/my.vue';
 	export default {
 		name:"tabbar_page",
 		components:{
 			Index,
-			Exchange
+			Exchange,
+			Property,
+			My
 		},
 		data() {
 			return {
@@ -34,7 +40,7 @@
 					},
 					{
 						icon:  require('../../static/tabbar_icon2@2x.png'),
-						selected_icon:  require('../../static/tabbar_icon2@2x.png'),
+						selected_icon:  require('../../static/tabbar_icon2_selected@2x.png'),
 						text: '兑换',
 						path: '/pages/exchange/exchange'
 					},
@@ -48,7 +54,7 @@
 						icon:  require('../../static/tabbar_icon4@2x.png'),
 						selected_icon:  require('../../static/tabbar_icon4_selected@2x.png'),
 						text: '资产',
-						path: '/pages/index/index'
+						path: '/pages/property/property'
 					},
 					{
 						icon:  require('../../static/tabbar_icon5@2x.png'),
@@ -57,7 +63,7 @@
 						path: '/pages/index/index'
 					}
 				],
-				current: 0
+				current: 4
 			};
 		},
 		methods:{
@@ -65,7 +71,7 @@
 				this.current = index;
 			}
 		},
-		
+		onShow() {}
 	}
 </script>
 
@@ -86,6 +92,8 @@
     align-items: center;
 	border-radius: 10px;
 	padding: 0 10upx;
+	box-shadow: 0upx 0upx 10upx fade(#fff, 20);
+	box-sizing: border-box;
 	.tabbar-item{
 		width: 20%;
 		display: flex;

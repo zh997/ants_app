@@ -12,7 +12,8 @@
 	}
 </script>
 
-<style>
+<style lang="less">
+	@import url('@/styles/theme_vars.less');
 	/*每个页面公共css */
 	.page-bg{
 		position: fixed;
@@ -20,7 +21,49 @@
 		left: 0;
 		width: 100%;
 		height: 100%;
-		background-color: #000;
+		background-color: #0f164d;
 		z-index: -1;
+	}
+	.tabbar-page{
+		padding-bottom: @tabbar-bottom-height;
+	}
+	.safearea{
+		padding-bottom: 0;
+		padding-bottom: constant(safe-area-inset-bottom);  
+		padding-bottom: env(safe-area-inset-bottom);
+	}
+	.status_bar {
+	    height: var(--status-bar-height);
+	    width: 100%;
+	}
+	.green-color{
+		color: @color-1EF0A9 ;
+	}
+	.primary-btn{
+		height: 95upx;
+		color: @color-010503;
+		background-color: @color-1EF0A9;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 95upx;
+	}
+	.navbar-wrap{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		&-title{
+			font-size: 60upx;
+			color: #fff;
+		}
+		&-sufix{
+			font-size: 28upx;
+			color: #fff;
+		}
+		.navbar-wrap-icon{
+			width: 26upx;
+			height: 26upx;
+			margin-left: 34upx;
+		}
 	}
 </style>
