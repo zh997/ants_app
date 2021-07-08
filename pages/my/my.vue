@@ -8,10 +8,10 @@
 			<view class="navbar-wrap-sufix">
 				<text>签到</text>
 				<image src="../../static/scan_icon@2x.png" class="navbar-wrap-icon" mode=""></image>
-			    <image src="../../static/qrcode_icon@2x.png" class="navbar-wrap-icon" mode=""></image>
+			    <image src="../../static/qrcode_icon@2x.png" class="navbar-wrap-icon" @click="onRouter('/pages/share/share')" mode=""></image>
 			</view>
 		</view>
-		<view class="my-header" @click="onToLogin">
+		<view class="my-header" @click="onRouter('/pages/login/login')">
 			<image src="../../static/default_icon@2x.png" class="avatar-icon" mode=""></image>
 		    <!-- <view class="user-info">
 		    	<view class="user-info-nickname">
@@ -68,7 +68,7 @@
 				<view class="upgrade-wrap-item-text">了解VIP等级权益</view>
 			</view>
 			<view class="upgrade-wrap-item-line"></view>
-			<view class="upgrade-wrap-item">
+			<view class="upgrade-wrap-item" @click="onRouter('/pages/share/share')">
 				<image src="../../static/app_icon_35@2x.png" class="upgrade-wrap-item-icon" mode=""></image>
 				<view class="upgrade-wrap-item-text">邀请好友</view>
 			</view>
@@ -130,10 +130,10 @@
 			};
 		},
 		methods:{
-			onToLogin(){
+			onRouter(url){
 				uni.navigateTo({
 					animationType: 'pop-in',
-					url: '/pages/login/login'
+					url: url
 				})
 			}
 		}

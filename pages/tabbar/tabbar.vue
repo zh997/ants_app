@@ -63,7 +63,7 @@
 						path: '/pages/index/index'
 					}
 				],
-				current: 4
+				current: 0
 			};
 		},
 		methods:{

@@ -30,11 +30,11 @@
 				<image src="../../static/app_icon_7@2x.png" class="entry-grid-item-icon" mode=""></image>
 			    <text class="entry-grid-item-text">NFT</text>
 			</view>
-			<view class="entry-grid-item">
+			<view class="entry-grid-item" @click="onRouter('/pages/public_offering/public_offering')">
 				<image src="../../static/app_icon_9@2x.png" class="entry-grid-item-icon" mode=""></image>
-			    <text class="entry-grid-item-text">公算</text>
+			    <text class="entry-grid-item-text">公募</text>
 			</view>
-			<view class="entry-grid-item">
+			<view class="entry-grid-item" @click="onRouter('/pages/share/share')">
 				<image src="../../static/app_icon_5@2x.png" class="entry-grid-item-icon" mode=""></image>
 			    <text class="entry-grid-item-text">邀请好友</text>
 			</view>
@@ -44,7 +44,7 @@
 			</view>
 		</view>
 		<view class="irregular-block">
-			<view class="irregular-block-left">
+			<view class="irregular-block-left" @click="onRouter('/pages/suanli_supermarket/suanli_supermarket')">
 				<image src="../../static/app_icon_4@2x.png" class="block-icon" mode=""></image>
 				<text class="block-text">算力超市</text>
 			</view>
@@ -53,7 +53,7 @@
 					<image src="../../static/app_icon_3@2x.png" class="block-icon" mode=""></image>
 					<text class="block-text">场外交易</text>
 				</view>
-				<view class="irregular-block-center-item">
+				<view class="irregular-block-center-item" @click="onRouter('/pages/recharge_entry/recharge_entry')">
 					<image src="../../static/app_icon_2@2x.png" class="block-icon" mode=""></image>
 					<text class="block-text">充币</text>
 				</view>
@@ -179,6 +179,12 @@
 			},
 			durationChange(e) {
 				this.duration = e.target.value
+			},
+			onRouter(url){
+				uni.navigateTo({
+					animationType:"pop-in",
+					url: url
+				})
 			}
 		}
 	}

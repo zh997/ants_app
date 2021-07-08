@@ -22,7 +22,7 @@
 		width: 100%;
 		height: 100%;
 		background-color: #0f164d;
-		z-index: -1;
+		z-index: -2;
 	}
 	.tabbar-page{
 		padding-bottom: @tabbar-bottom-height;
@@ -40,6 +40,7 @@
 		color: @color-1EF0A9 ;
 	}
 	.primary-btn{
+		width: 100%;
 		height: 95upx;
 		color: @color-010503;
 		background-color: @color-1EF0A9;
@@ -47,6 +48,7 @@
 		justify-content: center;
 		align-items: center;
 		border-radius: 95upx;
+		font-weight: bold;
 	}
 	.navbar-wrap{
 		display: flex;

@@ -1,14 +1,6 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-		    "path" : "pages/register/register",
-		    "style" :                                                                                    
-		    {
-		       "navigationStyle": "custom"
-		    }
-		    
-		},
-		{
 			"path": "pages/tabbar/tabbar",
 			"style": {
 				"navigationStyle": "custom",
@@ -21,8 +13,104 @@
             {
                "navigationStyle": "custom"
             }
-        }
+        },
+		{
+		    "path" : "pages/register/register",
+		    "style" :                                                                                    
+		    {
+		       "navigationStyle": "custom"
+		    }
+		    
+		}
         
+        ,{
+            "path" : "pages/recharge/recharge",
+            "style" :                                                                                    
+            {
+               "navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/recharge_entry/recharge_entry",
+            "style" :                                                                                    
+            {
+               "navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/share/share",
+            "style" :                                                                                    
+            {
+                 "navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/share_poster/share_poster",
+            "style" :                                                                                    
+            {
+                "navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/share_register/share_register",
+            "style" :                                                                                    
+            {
+               "navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/income/income",
+            "style" :                                                                                    
+            {
+                "navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/financial/financial",
+            "style" :                                                                                    
+            {
+                "navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/public_offering/public_offering",
+            "style" :                                                                                    
+            {
+                "navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/public_offering_success/public_offering_success",
+            "style" :                                                                                    
+            {
+               "navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/withdraw/withdraw",
+            "style" :                                                                                    
+            {
+               "navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/suanli_supermarket/suanli_supermarket",
+            "style" :                                                                                    
+            {
+               "navigationStyle": "custom"
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

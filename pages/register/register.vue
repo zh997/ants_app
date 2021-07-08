@@ -16,6 +16,35 @@
 				一站式流动性挖矿手机APP
 			</view>
 		</view>
+		<view class="register-form">
+			<view class="register-form-item">
+				<input type="text" value="" 
+					placeholder="请填写邮箱地址" 
+					placeholder-class="placeholder-class" 
+					class="register-form-item-input" 
+				/>
+				<text class="register-form-item-sufix"></text>
+			</view>
+			<view class="register-form-item">
+				<input type="text" value="" 
+					placeholder="请填写邮箱验证码" 
+					placeholder-class="placeholder-class" 
+					class="register-form-item-input" 
+				/>
+				<text class="register-form-item-sufix">发送验证码</text>
+			</view>
+			<view class="register-form-item">
+				<input type="text" value="" 
+					placeholder="请输入邀请码" 
+					placeholder-class="placeholder-class" 
+					class="register-form-item-input" 
+				/>
+				<text class="register-form-item-sufix">邀请码</text>
+			</view>
+			<view class="primary-btn">
+				注册
+			</view>
+		</view>
 		<image src="../../static/login/register_bg@2x.png" class="page-bg" mode=""></image>
 	</view>
 </template>
@@ -62,6 +91,34 @@
 		&-tip{
 			font-size: 28upx;
 			margin-bottom: 10upx;
+		}
+	}
+	.register-form{
+		padding: 0 34upx;
+		margin-top: 127upx;
+		&-item{
+			border: 1px solid @color-1EF0A9;
+			height: 109upx;
+			border-radius: 109upx;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 0 50upx;
+			margin-bottom: 61upx;
+			&-input{
+				height: 109upx;
+				flex: 1;
+				color: #fff;
+				font-size: 30.2upx;
+			}
+			&-sufix{
+				font-size: 30.2upx;
+				color: @color-1EF0A9;
+			}
+		}
+		.placeholder-class{
+			font-size: 30.2upx;
+			color: @color-2133B4;
 		}
 	}
 }

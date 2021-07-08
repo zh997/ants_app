@@ -10,11 +10,11 @@
 			</view>
 		</view>
 		<view class="property-entry">
-			<view class="property-entry-item">
+			<view class="property-entry-item" @click="onRouter('/pages/recharge_entry/recharge_entry')">
 				<image src="../../static/app_icon_20@2x.png" class="property-entry-item-icon" mode=""></image>
 			    <text class="property-entry-item-text">充值</text>
 			</view>
-			<view class="property-entry-item">
+			<view class="property-entry-item" @click="onRouter('/pages/withdraw/withdraw')">
 				<image src="../../static/app_icon_17@2x.png" class="property-entry-item-icon" mode=""></image>
 			    <text class="property-entry-item-text">提币</text>
 			</view>
@@ -38,14 +38,14 @@
 		    	</view>
 		    </view>
 		</view>
-		<view class="property-list-item">
+		<view class="property-list-item" @click="onRouter('/pages/income/income')">
 			<view class="property-list-item-label">
 				<image src="../../static/app_icon_15@2x.png" class="property-list-item-icon" mode=""></image>
 			    <view class="property-list-item-text">我的收益</view>
 			</view>
 			<image src="../../static/icon_right_arrow@2x.png" class="property-list-item-arrow" mode=""></image>
 		</view>
-		<view class="property-list-item">
+		<view class="property-list-item" @click="onRouter('/pages/financial/financial')">
 			<view class="property-list-item-label">
 				<image src="../../static/app_icon_16@2x.png" class="property-list-item-icon" mode=""></image>
 			    <view class="property-list-item-text">财务记录</view>
@@ -61,6 +61,14 @@
 			return {
 				
 			};
+		},
+		methods:{
+			onRouter(url){
+				uni.navigateTo({
+					animationType: "pop-in",
+					url: url
+				})
+			}
 		}
 	}
 </script>
