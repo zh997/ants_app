@@ -67,11 +67,11 @@
 		    <text class="main-title-text">矿池</text>
 			<image src="../../static/radius_rect@2x.png" class="main-title-rect" mode=""></image>
 		</view>
-		<view class="card-item">
+		<view class="card-item" @click="onRouter('/pages/orepool/orepool')">
 			<view class="card-item-header">
 				<view class="card-item-header-title">
 					<image src="../../static/app_icon_10@2x.png" class="card-item-header-icon" mode=""></image>
-				    <text class="card-item-header-title">空投矿池</text>
+				    <text class="card-item-header-title">高收益流动性矿池</text>
 				</view>
 				<view class="card-item-header-status">
 					<view class="card-item-header-status-dot"></view>
@@ -87,11 +87,11 @@
 				<text class="card-item-value-largetext green-color">188.18%</text>
 			</view>
 		</view>
-		<view class="card-item">
+		<view class="card-item" @click="onRouter('/pages/swapant_orepool/swapant_orepool')">
 			<view class="card-item-header">
 				<view class="card-item-header-title">
 					<image src="../../static/app_icon_13@2x.png" class="card-item-header-icon" mode=""></image>
-				    <text class="card-item-header-title">流动性矿池</text>
+				    <text class="card-item-header-title">SWAPANT矿池</text>
 				</view>
 				<view class="card-item-header-status">
 					<view class="card-item-header-status-dot"></view>
@@ -107,7 +107,7 @@
 				<text class="card-item-value-largetext green-color">188.18%</text>
 			</view>
 		</view>
-		<view class="card-item">
+		<!-- <view class="card-item">
 			<view class="card-item-header">
 				<view class="card-item-header-title">
 					<image src="../../static/app_icon_11@2x.png" class="card-item-header-icon" mode=""></image>
@@ -146,7 +146,7 @@
 				<text class="card-item-value-text"><text class="green-color">0.00</text>  SWAPANT</text>
 				<text class="card-item-value-largetext green-color">188.18%</text>
 			</view>
-		</view>
+		</view> -->
 	 </view>
 </template>
 
@@ -343,7 +343,7 @@
 		.card-item{
 			margin: 0 25upx 25upx 25upx;
 			background-color: @primary-color;
-			border-radius: 10upx;
+			border-radius: 20upx;
 			padding: 40upx;
 			box-sizing: border-box;
 			&-header{

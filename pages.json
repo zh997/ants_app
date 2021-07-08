@@ -111,6 +111,22 @@
             }
             
         }
+        ,{
+            "path" : "pages/orepool/orepool",
+            "style" :                                                                                    
+            {
+                "navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/swapant_orepool/swapant_orepool",
+            "style" :                                                                                    
+            {
+                 "navigationStyle": "custom"
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
