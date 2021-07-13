@@ -2,7 +2,7 @@
 	<view>
 		<Navbar title="高收益流动性矿池"/>
 		<view class="orepool-page">
-			<view class="card-item">
+			<view class="card-item" @click="onRouter('/pages/miner_detail/miner_detail')">
 				<view class="card-item-header">
 					<view class="card-item-header-title">
 						<image src="../../static/app_icon_10@2x.png" class="card-item-header-icon" mode=""></image>
@@ -25,7 +25,7 @@
 					<text class="card-item-value-largetext green-color">188.18%</text>
 				</view>
 			</view>
-			<view class="card-item">
+			<view class="card-item" @click="onRouter('/pages/miner_detail/miner_detail')">
 				<view class="card-item-header">
 					<view class="card-item-header-title">
 						<image src="../../static/app_icon_10@2x.png" class="card-item-header-icon" mode=""></image>
@@ -63,6 +63,14 @@
 			return {
 				
 			};
+		},
+		methods:{
+			onRouter(path){
+				uni.navigateTo({
+					animationType: "pop-in",
+					url: path
+				})
+			}
 		}
 	}
 </script>

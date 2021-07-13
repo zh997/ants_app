@@ -127,6 +127,38 @@
             }
             
         }
+        ,{
+            "path" : "pages/retrieve/retrieve",
+            "style" :                                                                                    
+            {
+               "navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/storage/storage",
+            "style" :                                                                                    
+            {
+                "navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/miner_detail/miner_detail",
+            "style" :                                                                                    
+            {
+               "navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/fund/fund",
+            "style" :                                                                                    
+            {
+                "navigationStyle": "custom"
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

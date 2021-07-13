@@ -13,6 +13,65 @@
 			    	</view>
 			    </view>
 			</view>
+			<view class="swapant-orepool-items">
+				<view class="swapant-orepool-item paddingLeft48">
+					<view class="swapant-orepool-item-label">
+						年化收益率
+					</view>
+					<view class="swapant-orepool-item-value">
+						30%~101%
+					</view>
+				</view>
+				<view class="swapant-orepool-item">
+					<view class="swapant-orepool-item-label">
+						当前价格
+					</view>
+					<view class="swapant-orepool-item-value">
+						1 SWAPANT≈0.687 USDT
+					</view>
+				</view>
+			</view>
+			<view class="swapant-orepool-rowitems">
+				<view class="swapant-orepool-rowitem">
+					<view class="swapant-orepool-rowitem-label">
+						个人质押算力
+					</view>
+					<view class="swapant-orepool-rowitem-value">
+						0
+					</view>
+				</view>
+				<view class="swapant-orepool-rowitem">
+					<view class="swapant-orepool-rowitem-label">
+						个人总算力
+					</view>
+					<view class="swapant-orepool-rowitem-value">
+						0
+					</view>
+				</view>
+			</view>
+			<view class="swapant-orepool-items">
+				<view class="swapant-orepool-item paddingLeft48">
+					<view class="swapant-orepool-item-label">
+						年化收益率
+					</view>
+					<view class="swapant-orepool-item-value">
+						30%~101%
+					</view>
+				</view>
+				<view class="swapant-orepool-item">
+					<view class="swapant-orepool-collectbtn">
+						收取
+					</view>
+				</view>
+			</view>
+			<view class="swapant-orepool-btnrow">
+				<view class="swapant-orepool-primarybtn" @click="onRouter('/pages/storage/storage')">
+					存储
+				</view>
+				<view class="swapant-orepool-quhuibtn" @click="onRouter('/pages/retrieve/retrieve')">
+					取回
+				</view>
+			</view>
 		</view>
 		<view class="page-bg"></view>
 	</view>
@@ -28,6 +87,14 @@
 			return {
 				
 			};
+		},
+		methods: {
+			onRouter(path){
+				uni.navigateTo({
+					animationType: "pop-in",
+					url: path
+				})
+			}
 		}
 	}
 </script>
@@ -73,6 +140,104 @@
 				font-weight: bold;
 				margin-top: 20upx;
 			}
+		}
+		&-items{
+			border-radius: 20upx;
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+			height: 150upx;
+			background-color: @color-0F1B65;
+			margin-bottom: 29upx;
+			.swapant-orepool-item{
+				display: flex;
+				justify-content: center;
+				align-items: flex-start;
+				flex-direction: column;
+				height: 150upx;
+				width: 50%;
+				
+				&-label{
+					font-size: 18upx;
+					color: #fff;
+					margin-bottom: 28upx;
+				}
+				&-value{
+					font-size: 24upx;
+					color: @color-1EF0A9;
+				}
+			}
+		}
+		&-rowitems{
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			height: 150upx;
+			margin-bottom: 29upx;
+		}
+		&-rowitem{
+			display: flex;
+			justify-content: center;
+			align-items: flex-start;
+		    height: 150upx;
+			width: 326upx;
+		    background-color: @color-0F1B65;
+			border-radius: 20upx;
+			flex-direction: column;
+			padding-left: 48upx;
+			box-sizing: border-box;
+			
+			&-label{
+				font-size: 18upx;
+				color: #fff;
+				margin-bottom: 28upx;
+			}
+			&-value{
+				font-size: 24upx;
+				color: @color-1EF0A9;
+			}
+		}
+		.paddingLeft48{
+			padding-left: 48upx;
+		}
+		&-collectbtn{
+			width: 240upx;
+			height: 59upx;
+			border-radius: 59upx;
+			border: 1px solid @color-1EF0A9;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 32upx;
+			color: #fff;
+			margin: 0 auto;
+		}
+		&-btnrow{
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		&-primarybtn{
+			width: 305upx;
+			height: 59upx;
+			background-color: @color-1EF0A9;
+			border-radius: 59upx;
+			color: #fff;
+			font-size: 32upx;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		&-quhuibtn{
+			width: 305upx;
+			height: 59upx;
+			background-color: @color-3240A8;
+			border-radius: 59upx;
+			color: #fff;
+			font-size: 32upx;
+			display: flex;
+			justify-content: center;
+			align-items: center;
 		}
 	}
 </style>

@@ -47,7 +47,7 @@
 					{
 						icon:  require('../../static/tabbar_icon3@2x.png'),
 						selected_icon:  require('../../static/tabbar_icon3_selected@2x.png'),
-						text: '量化交易',
+						text: '量化基金',
 						path: '/pages/index/index'
 					},
 					{
@@ -68,7 +68,15 @@
 		},
 		methods:{
 			onSwitchTab(item, index){
-				this.current = index;
+				if (index === 2) {
+					uni.navigateTo({
+						animationType: "pop-in",
+						url: '/pages/fund/fund'
+					})
+				} else {
+					this.current = index;
+				}
+				
 			}
 		},
 		onShow() {}
