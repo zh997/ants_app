@@ -18,7 +18,8 @@
 		</view>
 		<view class="register-form">
 			<view class="register-form-item">
-				<input type="text" value="" 
+				<input type="text"
+				    v-model="email"
 					placeholder="请填写邮箱地址" 
 					placeholder-class="placeholder-class" 
 					class="register-form-item-input" 
@@ -26,7 +27,39 @@
 				<text class="register-form-item-sufix"></text>
 			</view>
 			<view class="register-form-item">
-				<input type="text" value="" 
+				<input type="text" v-model="password"
+					placeholder="请填写登陆密码" 
+					placeholder-class="placeholder-class" 
+					class="register-form-item-input" 
+				/>
+				<text class="register-form-item-sufix"></text>
+			</view>
+			<view class="register-form-item">
+				<input type="text" v-model="password_confirm"
+					placeholder="请确认登陆密码" 
+					placeholder-class="placeholder-class" 
+					class="register-form-item-input" 
+				/>
+				<text class="register-form-item-sufix"></text>
+			</view>
+			<view class="register-form-item">
+				<input type="text" v-model="password2"
+					placeholder="请填写交易密码" 
+					placeholder-class="placeholder-class" 
+					class="register-form-item-input" 
+				/>
+				<text class="register-form-item-sufix"></text>
+			</view>
+			<view class="register-form-item">
+				<input type="text" v-model="password2_confirm"
+					placeholder="请确认交易密码" 
+					placeholder-class="placeholder-class" 
+					class="register-form-item-input" 
+				/>
+				<text class="register-form-item-sufix"></text>
+			</view>
+			<view class="register-form-item">
+				<input type="text" v-model="code"
 					placeholder="请填写邮箱验证码" 
 					placeholder-class="placeholder-class" 
 					class="register-form-item-input" 
@@ -34,14 +67,14 @@
 				<text class="register-form-item-sufix">发送验证码</text>
 			</view>
 			<view class="register-form-item">
-				<input type="text" value="" 
+				<input type="text" v-model="ucode"
 					placeholder="请输入邀请码" 
 					placeholder-class="placeholder-class" 
 					class="register-form-item-input" 
 				/>
 				<text class="register-form-item-sufix">邀请码</text>
 			</view>
-			<view class="primary-btn">
+			<view class="primary-btn" @click="onSubmit">
 				注册
 			</view>
 		</view>
@@ -50,11 +83,34 @@
 </template>
 
 <script>
+	import * as services from '@/ants/services/index.js';
 	export default {
 		data() {
 			return {
-				
+				email: '',
+				password: '',
+			    password_confirm: '',
+				password2: '',
+				password2_confirm: '',
+				code: '',
+				ucode: ''
 			};
+		},
+		methods: {
+			async onSubmit() {
+				const data = {
+					email: this.email,
+					password: this.password,
+					password_confirm: this.password_confirm,
+					password2: this.password2,
+					password2_confirm: this.password2_confirm,
+					code: this.code,
+					ucode: this.ucode,
+				}
+				uni.showLoading()
+				const res = await services.regster(data);
+				uni.hideLoading()
+			}
 		}
 	}
 </script>
@@ -62,8 +118,9 @@
 <style lang="less">
 @import url('@/styles/theme_vars.less');
 .register-page{
+	padding-bottom: 100upx;
 	.register-header{
-		padding: 54upx 40upx 123upx 40upx;
+		padding: 54upx 40upx 50upx 40upx;
 		display: flex;
 		justify-content: flex-start;
 		align-items: center;
@@ -86,7 +143,7 @@
 		flex-direction: column;
 		&-text{
 			font-size: 97.93upx;
-			margin-bottom: 47upx;
+			margin-bottom: 27upx;
 		}
 		&-tip{
 			font-size: 28upx;
@@ -95,7 +152,7 @@
 	}
 	.register-form{
 		padding: 0 34upx;
-		margin-top: 127upx;
+		margin-top: 50upx;
 		&-item{
 			border: 1px solid @color-1EF0A9;
 			height: 109upx;

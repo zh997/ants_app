@@ -1,42 +1,33 @@
-export default class request {
-	constructor(options) {
-	    this.options = options;
-		/** 拦截器 */
-		this.interceptors = {
-			request: {
-				use: (callback) => {
-				    this.requestBefore = callback;
-				}
-			},
-			response: {
-				use: (callbask) => {
-					this.requestAfter = callback;
-				}
-			}
+import Request from './request.js'
+// const Request = require()
+
+const instance = new Request({
+	baseUrl: 'http://mayi.trxcc.com',
+	timeout: 10000
+})
+
+
+instance.interceptors.request.use((req) => {
+	return req;
+})
+
+instance.interceptors.response.use((res) => {
+	console.log(res);
+	if (res.statusCode !== 200) {
+		uni.showToast({
+			icon: "none",
+			title: res.errMsg
+		})
+	} else {
+		if (res.data.status !== 1) {
+			uni.showToast({
+				icon: "none",
+				title: res.data.info
+			})
 		}
 	}
-	
-	/** 请求之后 */
-	requestAfter(res) {
-		return res;	
-	}
-	
-	/** 请求前 */
-	requestBefore(req) {
-	   return req;	
-	}
-	
-	/** 发起请求 */
-	send(url, method, data, options) {
-		const config = this.requestBefore({url, method, data, ...this.options, options})
-		return new Promise((resolve, reject) => {
-			config.success = (response) => {
-				resolve(this.requestAfter(response))
-			}
-			config.fail = (err) => {
-				reject(this.requestAfter(err));
-			}
-			uni.request(config);
-		})
-	}
-}
+	return res.data.data;
+})
+
+
+export default instance;

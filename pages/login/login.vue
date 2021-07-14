@@ -31,8 +31,11 @@
 		</view>
 		<view class="login-bottom-wrap">
 			
-			<view class="primary-btn">
+			<view class="primary-btn marginBottom">
 				登录
+			</view>
+			<view class="primary-btn" @click="onRegister">
+				注册
 			</view>
 			<view class="login-tips">
 				丢失或忘记密码？<text class="green-color">找回密码</text>
@@ -53,6 +56,11 @@
 			onBack(){
 				uni.navigateBack({
 					delta: 1
+				})
+			},
+			onRegister(){
+				uni.navigateTo({
+					url: '/pages/register/register'
 				})
 			}
 		}
@@ -135,6 +143,9 @@
 			font-size: 26upx;
 			margin-top: 50upx;
 		}
+	}
+	.marginBottom{
+		margin-bottom: 30upx;
 	}
 }
 </style>
