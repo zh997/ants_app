@@ -1,41 +1,18 @@
 <template>
 	<view>
-		<Navbar title="高收益流动性矿池"/>
+		<Navbar title="流动性矿池"/>
 		<view class="orepool-page">
-			<view class="card-item" @click="onRouter('/pages/miner_detail/miner_detail')">
+			<view class="card-item">
 				<view class="card-item-header">
 					<view class="card-item-header-title">
 						<image src="../../static/app_icon_10@2x.png" class="card-item-header-icon" mode=""></image>
-					    <text class="card-item-header-title">空投矿池</text>
+					    <text class="card-item-header-title">高收益流动性矿池</text>
 						<view class="card-item-header-status">
 							<view class="card-item-header-status-dot"></view>
 						    <text class="card-item-header-status">运行中</text>
 						</view>
 					</view>
-					<view class="card-item-header-btn">
-						立即质押
-					</view>
-				</view>
-				<view class="card-item-label">
-					<text class="card-item-label-text">日产出</text>
-					<text class="card-item-label-text">最高年化收益率</text>
-				</view>
-				<view class="card-item-value">
-					<text class="card-item-value-text"><text class="green-color">0.00</text>  SWAPANT</text>
-					<text class="card-item-value-largetext green-color">188.18%</text>
-				</view>
-			</view>
-			<view class="card-item" @click="onRouter('/pages/miner_detail/miner_detail')">
-				<view class="card-item-header">
-					<view class="card-item-header-title">
-						<image src="../../static/app_icon_10@2x.png" class="card-item-header-icon" mode=""></image>
-					    <text class="card-item-header-title">空投矿池</text>
-						<view class="card-item-header-status">
-							<view class="card-item-header-status-dot"></view>
-						    <text class="card-item-header-status">运行中</text>
-						</view>
-					</view>
-					<view class="card-item-header-btn">
+					<view class="card-item-header-btn" @click="onRouter('/pages/swapant_orepool/swapant_orepool')">
 						立即质押
 					</view>
 				</view>

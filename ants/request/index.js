@@ -3,16 +3,21 @@ import Request from './request.js'
 
 const instance = new Request({
 	baseUrl: 'http://mayi.trxcc.com',
-	timeout: 10000
+	timeout: 10000,
 })
 
 
 instance.interceptors.request.use((req) => {
+	const authtoken = uni.getStorageSync('authtoken');
+	if (authtoken !== "") {
+		req.header = {
+			authtoken: authtoken
+		}
+	}
 	return req;
 })
 
 instance.interceptors.response.use((res) => {
-	console.log(res);
 	if (res.statusCode !== 200) {
 		uni.showToast({
 			icon: "none",

@@ -34,7 +34,7 @@
 		    		我的资产
 		    	</view>
 		    	<view class="property-info-value">
-		    		0 SWAPANT
+		    		{{walletData.usdt}} USDT
 		    	</view>
 		    </view>
 		</view>
@@ -56,11 +56,16 @@
 </template>
 
 <script>
+	import * as services from '@/ants/services/index.js';
 	export default {
 		data() {
 			return {
-				
+				walletData: {}
 			};
+		},
+		async mounted() {
+			const response = await services.walletIndex();
+			this.walletData = response;
 		},
 		methods:{
 			onRouter(url){

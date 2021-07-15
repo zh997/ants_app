@@ -21,7 +21,7 @@
 				</view>
 			</view>
 			<view class="primary-btn">
-				复制邀请码
+				复制邀请链接
 			</view>
 		</view>
 		<image src="../../static/share/share_poster_bg@2x.png" class="page-bg" mode=""></image>

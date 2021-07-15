@@ -11,21 +11,21 @@
 			    <image src="../../static/qrcode_icon@2x.png" class="navbar-wrap-icon" @click="onRouter('/pages/share/share')" mode=""></image>
 			</view>
 		</view>
-		<view class="my-header" @click="onRouter('/pages/login/login')">
+		<view class="my-header">
 			<image src="../../static/default_icon@2x.png" class="avatar-icon" mode=""></image>
-		    <!-- <view class="user-info">
+		    <view class="user-info">
 		    	<view class="user-info-nickname">
-		    		123456789@qq.com
+		    		{{mineInfo.account}}
 		    	</view>
 				<view class="user-info-uid">
 					<text class="user-info-uid-label">UID</text>
-					<text>	88888888</text>
+					<text>	{{mineInfo.uid}}</text>
 					<image src="../../static/copy_btn@2x.png" class="copy-btn-icon" mode=""></image>
 				</view>
-		    </view> -->
-			<view class="no-login">
+		    </view>
+			<!-- <view class="no-login">
 				登录/注册
-			</view>
+			</view> -->
 		</view>
 		
 		<view class="my-counts">
@@ -123,11 +123,16 @@
 </template>
 
 <script>
+	import * as services from '@/ants/services/index.js';
 	export default {
 		data() {
 			return {
-				
+				mineInfo: {}
 			};
+		},
+		async mounted() {
+			const response = await services.mineIndex();
+			this.mineInfo = response;
 		},
 		methods:{
 			onRouter(url){
@@ -177,8 +182,8 @@
 				}
 			}
 			.copy-btn-icon{
-				width: 16upx;
-				height: 18upx;
+				width: 25upx;
+				height: 27upx;
 				margin-left: 20upx;
 			}
 		}

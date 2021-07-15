@@ -1,9 +1,6 @@
 export default class Request {
 	constructor(options) {
-	    this.options = {
-			baseUrl: 'http://mayi.trxcc.com',
-			timeout: 10000
-		};
+	    this.options = options;
 		/** 拦截器 */
 		this.interceptors = {
 			request: {
@@ -35,7 +32,10 @@ export default class Request {
 		const config = this.requestBefore({url: apiUrl, method, data, ...this.options, options})
 		return new Promise((resolve, reject) => {
 			config.success = (response) => {
-				resolve(this.requestAfter(response))
+				if (response.statusCode === 200 && response.data.status === 1) {
+				   return resolve(this.requestAfter(response))
+				}
+				reject(this.requestAfter(response));
 			}
 			config.fail = (err) => {
 				reject(this.requestAfter(err));

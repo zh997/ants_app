@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<Navbar title="SWAPANT矿池"/>
+		<Navbar title="质押"/>
 		<view class="swapant-orepool">
 			<view class="property-info">
 				<image src="../../static/property_banner@2x.png" class="property-info-bg" mode=""></image>

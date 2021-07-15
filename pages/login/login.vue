@@ -13,7 +13,7 @@
 					<image src="../../static/login/user_icon@2x.png" class="exchange-input-label-icon" mode=""></image>
 				    <view class="exchange-input-label-line"></view>
 				</view>
-				<input type="text" value="" placeholder="请输入邮箱" class="exchange-input" placeholder-class="exchange-input-placeholder"/>
+				<input type="text" v-model="account" placeholder="请输入邮箱" class="exchange-input" placeholder-class="exchange-input-placeholder"/>
 			    <!-- <text class="exchange-input-sufix">全部</text> -->
 			</view>
 		</view>
@@ -24,14 +24,14 @@
 					<image src="../../static/login/pwd_icon@2x.png" class="exchange-input-label-icon" mode=""></image>
 				    <view class="exchange-input-label-line"></view>
 				</view>
-				<input type="text" value="" placeholder="请输入密码" class="exchange-input" placeholder-class="exchange-input-placeholder"/>
+				<input type="text" v-model="password" placeholder="请输入密码" class="exchange-input" placeholder-class="exchange-input-placeholder"/>
 			    <!-- <text class="exchange-input-sufix">全部</text> -->
 			</view>
 			
 		</view>
 		<view class="login-bottom-wrap">
 			
-			<view class="primary-btn marginBottom">
+			<view class="primary-btn marginBottom" @click="onSubmit">
 				登录
 			</view>
 			<view class="primary-btn" @click="onRegister">
@@ -46,10 +46,12 @@
 </template>
 
 <script>
+	import * as services from '@/ants/services/index.js';
 	export default {
 		data() {
 			return {
-				
+				account: '',
+				password: ''
 			};
 		},
 		methods:{
@@ -61,6 +63,19 @@
 			onRegister(){
 				uni.navigateTo({
 					url: '/pages/register/register'
+				})
+			},
+			async onSubmit(){
+				const data = {
+					account: this.account,
+					password: this.password,
+				}
+				uni.showLoading()
+				const res = await services.login(data);
+				uni.setStorageSync('authtoken', res.auth_token);
+				uni.hideLoading()
+				uni.reLaunch({
+					url: '/pages/tabbar/tabbar'
 				})
 			}
 		}

@@ -43,28 +43,13 @@
 				<text class="register-form-item-sufix"></text>
 			</view>
 			<view class="register-form-item">
-				<input type="text" v-model="password2"
-					placeholder="请填写交易密码" 
-					placeholder-class="placeholder-class" 
-					class="register-form-item-input" 
-				/>
-				<text class="register-form-item-sufix"></text>
-			</view>
-			<view class="register-form-item">
-				<input type="text" v-model="password2_confirm"
-					placeholder="请确认交易密码" 
-					placeholder-class="placeholder-class" 
-					class="register-form-item-input" 
-				/>
-				<text class="register-form-item-sufix"></text>
-			</view>
-			<view class="register-form-item">
 				<input type="text" v-model="code"
 					placeholder="请填写邮箱验证码" 
 					placeholder-class="placeholder-class" 
 					class="register-form-item-input" 
 				/>
-				<text class="register-form-item-sufix">发送验证码</text>
+				<text class="register-form-item-sufix" v-if="!isSendCode" @click="onGetCode">发送验证码</text>
+				<text v-else class="register-form-item-sufix">{{secends}}s</text>
 			</view>
 			<view class="register-form-item">
 				<input type="text" v-model="ucode"
@@ -74,8 +59,11 @@
 				/>
 				<text class="register-form-item-sufix">邀请码</text>
 			</view>
-			<view class="primary-btn" @click="onSubmit">
+			<view class="primary-btn marginBottom" @click="onSubmit">
 				注册
+			</view>
+			<view class="primary-btn" @click="onLogin">
+				登录
 			</view>
 		</view>
 		<image src="../../static/login/register_bg@2x.png" class="page-bg" mode=""></image>
@@ -90,27 +78,63 @@
 				email: '',
 				password: '',
 			    password_confirm: '',
-				password2: '',
-				password2_confirm: '',
 				code: '',
-				ucode: ''
+				ucode: '',
+				isSendCode: false,
+				secends: 60,
+				timer: null,
 			};
 		},
 		methods: {
+			onLogin(){
+				uni.navigateTo({
+					url: '/pages/login/login'
+				})
+			},
 			async onSubmit() {
 				const data = {
 					email: this.email,
 					password: this.password,
 					password_confirm: this.password_confirm,
-					password2: this.password2,
-					password2_confirm: this.password2_confirm,
 					code: this.code,
 					ucode: this.ucode,
 				}
 				uni.showLoading()
 				const res = await services.regster(data);
 				uni.hideLoading()
-			}
+			},
+			async onGetCode() {
+				if (!this.email || !this.email.trim()) {
+					return uni.showModal({
+						content: '请输入邮箱地址',
+						showCancel: false
+					})
+				}
+				uni.showLoading({
+					title: '正在发送...'
+				})
+				if (!this.$hasRequest) {
+					const response= await services.sendCode({email: this.email});
+					this.onCoundDowd();
+					this.isSendCode = true;
+					uni.showToast({
+						icon: 'success',
+						title: '发送成功'
+					})
+				}
+			},
+			onCoundDowd() {
+				let secends = this.secends;
+				this.timer && clearInterval(this.timer);
+			   	this.timer = setInterval(() => {
+					if (secends <= 0 ) {
+						this.isSendCode = false;
+						this.secends = 60;
+						return;
+					}
+					this.secends = secends = secends - 1;
+				}, 1000)
+			},
 		}
 	}
 </script>
@@ -177,6 +201,10 @@
 			font-size: 30.2upx;
 			color: @color-2133B4;
 		}
+	}
+	
+	.marginBottom{
+		margin-bottom: 30upx;
 	}
 }
 </style>

@@ -12,14 +12,14 @@
 			<view class="withdraw-form-item">
 				<view class="withdraw-form-item-label">提币地址</view>
 				<view class="withdraw-form-item-view">
-					<input type="text" value="" class="withdraw-form-item-input" placeholder="请输入提币地址" placeholder-class="placeholder-class"  />
-					<text class="withdraw-form-item-sufix">粘贴</text>
+					<input type="text" v-model="to" class="withdraw-form-item-input" placeholder="请输入提币地址" placeholder-class="placeholder-class"  />
+					<text class="withdraw-form-item-sufix" @click="onGetClipboardData">粘贴</text>
 				</view>
 			</view>
 			<view class="withdraw-form-item">
 				<view class="withdraw-form-item-label">提币数量</view>
 				<view class="withdraw-form-item-view">
-					<input type="text" value="" class="withdraw-form-item-input" placeholder="请输入提币数量" placeholder-class="placeholder-class"  />
+					<input type="number" v-model="num" class="withdraw-form-item-input" placeholder="请输入提币数量" placeholder-class="placeholder-class"  />
 				</view>
 			</view>
 			<view class="withdraw-info">
@@ -48,7 +48,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="primary-btn">
+			<view class="primary-btn" @click="onShowPopup">
 				提币
 			</view>
 			<view class="withdraw-tip">
@@ -60,19 +60,55 @@
 			</view>
 		</view>
 		<view class="page-bg"></view>
+		<u-popup v-model="show" mode="center" z-index="10" border-radius="14" close-icon="close" :closeable="true" width="500">
+			<view class="popup-content">
+				<u-input v-model="password" class="popup-content-input" type="password" placeholder="请输入交易密码" :border="true"/>
+				<u-button type="primary" @click="onSubmit">确认</u-button>
+			</view>
+		</u-popup>
 	</view>
 </template>
 
 <script>
 	import Navbar from '@/components/navbar.vue';
+	import * as services from '@/ants/services/index.js';
 	export default {
 		components:{
 			Navbar
 		},
 		data() {
 			return {
-				
+				show: false,
+				num: '',
+				to: '',
+				password: ''
 			};
+		},
+		methods: {
+			onShowPopup() {
+				this.show = true;
+			},
+			onGetClipboardData(){
+				uni.getClipboardData({
+				    success: (res) => {
+						this.to = res.data;
+				    }
+				});
+			},
+			async onSubmit(){
+				const data = {
+					num: this.num,
+					to: this.to,
+					password: this.password,
+				}
+				uni.showLoading()
+				const res = await services.walletWithdraw(data);
+				this.show = false;
+				uni.showToast({
+					icon: 'success',
+					title: '提币成功'
+				})
+			}
 		}
 	}
 </script>
@@ -139,6 +175,12 @@
 		font-size: 24upx;
 		padding: 60upx 0;
 		color: #fff;
+	}
+}
+.popup-content{
+	padding: 100upx 20upx 20upx 20upx;
+	&-input{
+		margin-bottom: 50upx;
 	}
 }
 </style>

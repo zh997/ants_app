@@ -1,6 +1,18 @@
 <script>
 	export default {
 		onLaunch: function() {
+			const authtoken = uni.getStorageSync('authtoken');
+			console.log(authtoken);
+			if (authtoken !== "") {
+				uni.reLaunch({
+					url: '/pages/tabbar/tabbar'
+				})
+			} else {
+				console.log('dasd');
+				uni.reLaunch({
+					url: '/pages/login/login'
+				})
+			}
 			console.log('App Launch');
 		},
 		onShow: function() {

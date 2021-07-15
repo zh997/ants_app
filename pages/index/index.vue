@@ -6,20 +6,14 @@
 			<text class="index-header-text">Swapant</text>
 	 	</view>
 		<swiper class="swiper-wrap" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
-			<swiper-item class="swiper-item">
-				<image src="../../static/banner_1@2x.png" class="banner-item" mode=""></image>
-			</swiper-item>
-			<swiper-item class="swiper-item">
-				<image src="../../static/banner_1@2x.png" class="banner-item" mode=""></image>
-			</swiper-item>
-			<swiper-item class="swiper-item">
-				<image src="../../static/banner_1@2x.png" class="banner-item" mode=""></image>
+			<swiper-item v-for="(item,index) in banner_list" :key="index" class="swiper-item">
+				<image :src="item.cover" class="banner-item" mode=""></image>
 			</swiper-item>
 		</swiper>
 		<view class="notify-wrap">
 			<image src="../../static/app_icon_1@2x.png" class="notify-wrap-icon" mode=""></image>
 			<view class="notify-wrap-line"></view>
-			<view class="notify-wrap-text">热烈上线</u-notice-bar></view>
+			<view class="notify-wrap-text">{{notice_info.title}}</view>
 		</view>
 		<view class="entry-grid">
 			<view class="entry-grid-item">
@@ -67,31 +61,12 @@
 		    <text class="main-title-text">矿池</text>
 			<image src="../../static/radius_rect@2x.png" class="main-title-rect" mode=""></image>
 		</view>
-		<view class="card-item" @click="onRouter('/pages/orepool/orepool')">
-			<view class="card-item-header">
-				<view class="card-item-header-title">
-					<image src="../../static/app_icon_10@2x.png" class="card-item-header-icon" mode=""></image>
-				    <text class="card-item-header-title">高收益流动性矿池</text>
-				</view>
-				<view class="card-item-header-status">
-					<view class="card-item-header-status-dot"></view>
-				    <text class="card-item-header-status">运行中</text>
-				</view>
-			</view>
-			<view class="card-item-label">
-				<text class="card-item-label-text">日产出</text>
-				<text class="card-item-label-text">最高年化收益率</text>
-			</view>
-			<view class="card-item-value">
-				<text class="card-item-value-text"><text class="green-color">0.00</text>  SWAPANT</text>
-				<text class="card-item-value-largetext green-color">188.18%</text>
-			</view>
-		</view>
-		<view class="card-item" @click="onRouter('/pages/swapant_orepool/swapant_orepool')">
+		
+		<view class="card-item">
 			<view class="card-item-header">
 				<view class="card-item-header-title">
 					<image src="../../static/app_icon_13@2x.png" class="card-item-header-icon" mode=""></image>
-				    <text class="card-item-header-title">SWAPANT矿池</text>
+				    <text class="card-item-header-title">空投矿池</text>
 				</view>
 				<view class="card-item-header-status">
 					<view class="card-item-header-status-dot"></view>
@@ -107,11 +82,31 @@
 				<text class="card-item-value-largetext green-color">188.18%</text>
 			</view>
 		</view>
-		<!-- <view class="card-item">
+		<view class="card-item"  @click="onRouter('/pages/suanli_supermarket/suanli_supermarket')">
 			<view class="card-item-header">
 				<view class="card-item-header-title">
 					<image src="../../static/app_icon_11@2x.png" class="card-item-header-icon" mode=""></image>
 				    <text class="card-item-header-title">物理算力矿池</text>
+				</view>
+				<view class="card-item-header-status">
+					<view class="card-item-header-status-dot"></view>
+				    <text class="card-item-header-status">运行中</text>
+				</view>
+			</view>
+			<view class="card-item-label">
+				<text class="card-item-label-text">日产出</text>
+				<text class="card-item-label-text">最高年化收益率</text>
+			</view>
+			<view class="card-item-value">
+				<text class="card-item-value-text"><text class="green-color">0.00</text>  SWAPANT</text>
+				<text class="card-item-value-largetext green-color">188.18%</text>
+			</view>
+		</view>
+		<view class="card-item" @click="onRouter('/pages/orepool/orepool')">
+			<view class="card-item-header">
+				<view class="card-item-header-title">
+					<image src="../../static/app_icon_10@2x.png" class="card-item-header-icon" mode=""></image>
+				    <text class="card-item-header-title">流动性矿池</text>
 				</view>
 				<view class="card-item-header-status">
 					<view class="card-item-header-status-dot"></view>
@@ -146,11 +141,12 @@
 				<text class="card-item-value-text"><text class="green-color">0.00</text>  SWAPANT</text>
 				<text class="card-item-value-largetext green-color">188.18%</text>
 			</view>
-		</view> -->
+		</view>
 	 </view>
 </template>
 
 <script>
+	import * as services from '@/ants/services/index.js';
 	export default {
 		data() {
 			return {
@@ -164,8 +160,18 @@
 					'平明送客楚山孤',
 					'洛阳亲友如相问',
 					'一片冰心在玉壶'
-				]
+				],
+				banner_list: [],
+				notice_info: {
+					id: 0,
+					title: ''
+				}
 			}
+		},
+		async mounted() {
+			const response = await services.homeIndex();
+			this.banner_list = response.banner_list;
+			this.notice_info = response.notice_info;
 		},
 		methods: {
 			changeIndicatorDots(e) {
@@ -185,7 +191,7 @@
 					animationType:"pop-in",
 					url: url
 				})
-			}
+			},
 		}
 	}
 </script>
