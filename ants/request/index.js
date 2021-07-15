@@ -25,6 +25,12 @@ instance.interceptors.response.use((res) => {
 		})
 	} else {
 		if (res.data.status !== 1) {
+			if (res.data.code === 4003) {
+				uni.removeStorageSync('authtoken');
+				uni.reLaunch({
+					url: '/pages/login/login'
+				})
+			}
 			uni.showToast({
 				icon: "none",
 				title: res.data.info
