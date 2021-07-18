@@ -1,6 +1,6 @@
 <script>
 	export default {
-		onLaunch: function() {
+		onLaunch: function(options) {
 			const authtoken = uni.getStorageSync('authtoken');
 			console.log(authtoken);
 			if (authtoken !== "") {
@@ -8,10 +8,11 @@
 					url: '/pages/tabbar/tabbar'
 				})
 			} else {
-				console.log('dasd');
-				uni.reLaunch({
-					url: '/pages/login/login'
-				})
+				if (options.path !== 'pages/register/register') {
+					uni.reLaunch({
+						url: '/pages/login/login'
+					})
+				}
 			}
 			console.log('App Launch');
 		},

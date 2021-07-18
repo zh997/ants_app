@@ -3,7 +3,7 @@
 		<view class="status_bar"></view>
 		<view class="login-header">
 			<image src="../../static/login/back_icon@2x.png" class="login-header-icon" @click="onBack" mode=""></image>
-			<view class="login-header-title">登录...</view>
+			<view class="login-header-title">忘记密码...</view>
 			<view class="login-header-text">挖矿、nft、defi 投顾乐园，一站式流动性挖矿手机APP</view>
 		</view>
 		<view class="login-form-wrap">
@@ -24,19 +24,42 @@
 					<image src="../../static/login/pwd_icon@2x.png" class="exchange-input-label-icon" mode=""></image>
 				    <view class="exchange-input-label-line"></view>
 				</view>
-				<input type="password" v-model="password" placeholder="请输入密码" class="exchange-input" placeholder-class="exchange-input-placeholder"/>
-			    <!-- <text class="exchange-input-sufix">全部</text> -->
+				<input type="password" v-model="code" placeholder="请输入验证码" class="exchange-input" placeholder-class="exchange-input-placeholder"/>
+				<text class="exchange-input-sufix" v-if="!isSendCode" @click="onGetCode">发送验证码</text>
+				<text v-else class="exchange-input-sufix">{{secends}}s</text>
 			</view>
 			
+		</view>
+		<view class="login-form-wrap">
+			<view class="exchange-form-label">新密码</view>
+			<view class="exchange-input-wrap">
+				<view class="exchange-input-label">
+					<image src="../../static/login/pwd_icon@2x.png" class="exchange-input-label-icon" mode=""></image>
+				    <view class="exchange-input-label-line"></view>
+				</view>
+				<input type="text" v-model="password" placeholder="请输入新密码" class="exchange-input" placeholder-class="exchange-input-placeholder"/>
+			    <!-- <text class="exchange-input-sufix">全部</text> -->
+			</view>
+		</view>
+		<view class="login-form-wrap">
+			<view class="exchange-form-label">确认新密码</view>
+			<view class="exchange-input-wrap">
+				<view class="exchange-input-label">
+					<image src="../../static/login/pwd_icon@2x.png" class="exchange-input-label-icon" mode=""></image>
+				    <view class="exchange-input-label-line"></view>
+				</view>
+				<input type="text" v-model="pwdconfirm" placeholder="确认新密码" class="exchange-input" placeholder-class="exchange-input-placeholder"/>
+			    <!-- <text class="exchange-input-sufix">全部</text> -->
+			</view>
 		</view>
 		<view class="login-bottom-wrap">
 			
 			<view class="primary-btn marginBottom" @click="onSubmit">
-				登录
+				找回
 			</view>
 			<view class="login-tips">
 			  <text>还没账号？<text class="green-color" @click="onRegister">立即注册</text></text>
-			  <text class="green-color" @click="onForgetPwd">找回密码</text>
+			  <text class="green-color" @click="onBack">返回登陆</text>
 			</view>
 		</view>
 		<image src="../../static/login/login_bg@2x.png" class="page-bg" mode=""></image>
@@ -49,7 +72,12 @@
 		data() {
 			return {
 				account: '',
-				password: ''
+				code: '',
+				password: '',
+				pwdconfirm: '',
+				isSendCode: false,
+				secends: 60,
+				timer: null,
 			};
 		},
 		methods:{
@@ -60,29 +88,62 @@
 			},
 			onRegister(){
 				uni.navigateTo({
-					animationType: "pop-in",
 					url: '/pages/register/register'
-				})
-			},
-			onForgetPwd(){
-				uni.navigateTo({
-					animationType: "pop-in",
-					url: '/pages/forget_pwd/forget_pwd'
 				})
 			},
 			async onSubmit(){
 				const data = {
 					account: this.account,
+					code: this.code,
+					pwdconfirm: this.pwdconfirm,
 					password: this.password,
 				}
 				uni.showLoading()
-				const res = await services.login(data);
-				uni.setStorageSync('authtoken', res.auth_token);
-				uni.hideLoading()
-				uni.reLaunch({
-					url: '/pages/tabbar/tabbar'
+				const res = await services.forgetPwd(data);
+				uni.showToast({
+					icon: 'success',
+					title: '修改成功，请重新登录',
+					success: () => {
+						setTimeout(() => {
+							uni.reLaunch({
+								url: '/pages/login/login'
+							})
+						}, 1500)
+					}
 				})
-			}
+			},
+			async onGetCode() {
+				if (!this.account || !this.account.trim()) {
+					return uni.showModal({
+						content: '请输入邮箱地址',
+						showCancel: false
+					})
+				}
+				uni.showLoading({
+					title: '正在发送...'
+				})
+				if (!this.$hasRequest) {
+					const response= await services.sendCode({email: this.account});
+					this.onCoundDowd();
+					this.isSendCode = true;
+					uni.showToast({
+						icon: 'success',
+						title: '发送成功'
+					})
+				}
+			},
+			onCoundDowd() {
+				let secends = this.secends;
+				this.timer && clearInterval(this.timer);
+			   	this.timer = setInterval(() => {
+					if (secends <= 0 ) {
+						this.isSendCode = false;
+						this.secends = 60;
+						return;
+					}
+					this.secends = secends = secends - 1;
+				}, 1000)
+			},
 		}
 	}
 </script>
@@ -91,7 +152,7 @@
 	@import url('@/styles/theme_vars.less');
 .login-page{
 	.login-header{
-		padding: 25upx 46upx 158upx 36upx;
+		padding: 25upx 46upx 70upx 36upx;
 		color: #fff;
 		&-icon{
 			width: 34upx;
@@ -121,7 +182,7 @@
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-			margin-bottom: 97upx;
+			margin-bottom: 50upx;
 			border-radius: 10upx;
 			.exchange-input-label{
 				display: flex;
