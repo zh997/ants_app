@@ -172,6 +172,54 @@
                 "navigationStyle": "custom"
             }
             
+        },
+		{
+		    "path" : "pages/setting/setting",
+		    "style" :                                                                                    
+		    {
+		        "navigationStyle": "custom"
+		    }
+		    
+		}
+        ,{
+            "path" : "pages/accounts_security/accounts_security",
+            "style" :                                                                                    
+            {
+                "navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/update_pwd/update_pwd",
+            "style" :                                                                                    
+            {
+                "navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/recharge_record/recharge_record",
+            "style" :                                                                                    
+            {
+                "navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/withdraw_record/withdraw_record",
+            "style" :                                                                                    
+            {
+               "navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/forget_pwd/forget_pwd",
+            "style" :                                                                                    
+            {
+                 "navigationStyle": "custom"
+            }
+            
         }
     ],
 	"globalStyle": {

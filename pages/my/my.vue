@@ -6,26 +6,26 @@
 				我的
 			</view>
 			<view class="navbar-wrap-sufix">
-				<text>签到</text>
-				<image src="../../static/scan_icon@2x.png" class="navbar-wrap-icon" mode=""></image>
+				<text @click="onRouter('')">签到</text>
+				<image src="../../static/scan_icon@2x.png" @click="onRouter('')" class="navbar-wrap-icon" mode=""></image>
 			    <image src="../../static/qrcode_icon@2x.png" class="navbar-wrap-icon" @click="onRouter('/pages/share/share')" mode=""></image>
 			</view>
 		</view>
-		<view class="my-header">
+		<view class="my-header" @click="onRouter('/pages/login/login')">
 			<image src="../../static/default_icon@2x.png" class="avatar-icon" mode=""></image>
-		    <view class="user-info">
+		    <!-- <view class="user-info">
 		    	<view class="user-info-nickname">
-		    		{{mineInfo.account}}
+		    		123456789@qq.com
 		    	</view>
 				<view class="user-info-uid">
 					<text class="user-info-uid-label">UID</text>
-					<text>	{{mineInfo.uid}}</text>
+					<text>	88888888</text>
 					<image src="../../static/copy_btn@2x.png" class="copy-btn-icon" mode=""></image>
 				</view>
-		    </view>
-			<!-- <view class="no-login">
+		    </view> -->
+			<view class="no-login">
 				登录/注册
-			</view> -->
+			</view>
 		</view>
 		
 		<view class="my-counts">
@@ -63,7 +63,7 @@
 			</view>
 		</view>
 		<view class="upgrade-wrap">
-			<view class="upgrade-wrap-item">
+			<view class="upgrade-wrap-item" @click="onRouter('')">
 				<image src="../../static/app_icon_35@2x.png" class="upgrade-wrap-item-icon" mode=""></image>
 				<view class="upgrade-wrap-item-text">了解VIP等级权益</view>
 			</view>
@@ -74,47 +74,47 @@
 			</view>
 		</view>
 		<view class="my-entry">
-			<view class="my-entry-item">
+			<view class="my-entry-item" @click="onRouter('')">
 				<image src="../../static/my/my_icon_1@2x.png" class="my-entry-item-icon" mode=""></image>
 				<text class="my-entry-item-text">我的持仓</text>
 			</view>
-			<view class="my-entry-item">
+			<view class="my-entry-item" @click="onRouter('')">
 				<image src="../../static/my/my_icon_2@2x.png" class="my-entry-item-icon" mode=""></image>
 				<text class="my-entry-item-text">挖矿预告</text>
 			</view>
-			<view class="my-entry-item">
+			<view class="my-entry-item" @click="onRouter('')">
 				<image src="../../static/my/my_icon_3@2x.png" class="my-entry-item-icon" mode=""></image>
 				<text class="my-entry-item-text">红包</text>
 			</view>
-			<view class="my-entry-item">
+			<view class="my-entry-item" @click="onRouter('')">
 				<image src="../../static/my/my_icon_4@2x.png" class="my-entry-item-icon" mode=""></image>
 				<text class="my-entry-item-text">优惠券</text>
 			</view>
-			<view class="my-entry-item">
+			<view class="my-entry-item" @click="onRouter('')">
 				<image src="../../static/my/my_icon_5@2x.png" class="my-entry-item-icon" mode=""></image>
 				<text class="my-entry-item-text">社区大学</text>
 			</view>
-			<view class="my-entry-item">
+			<view class="my-entry-item" @click="onRouter('')">
 				<image src="../../static/my/my_icon_6@2x.png" class="my-entry-item-icon" mode=""></image>
 				<text class="my-entry-item-text">消息</text>
 			</view>
-			<view class="my-entry-item">
+			<view class="my-entry-item" @click="onRouter('')">
 				<image src="../../static/my/my_icon_7@2x.png" class="my-entry-item-icon" mode=""></image>
 				<text class="my-entry-item-text">帮助中心</text>
 			</view>
-			<view class="my-entry-item">
+			<view class="my-entry-item" @click="onRouter('/pages/setting/setting')">
 				<image src="../../static/my/my_icon_8@2x.png" class="my-entry-item-icon" mode=""></image>
 				<text class="my-entry-item-text">设置</text>
 			</view>
-			<view class="my-entry-item">
+			<view class="my-entry-item" @click="onRouter('')">
 				<image src="../../static/my/my_icon_9@2x.png" class="my-entry-item-icon" mode=""></image>
 				<text class="my-entry-item-text">在线客服</text>
 			</view>
-			<view class="my-entry-item">
+			<view class="my-entry-item" @click="onRouter('')">
 				<image src="../../static/my/my_icon_10@2x.png" class="my-entry-item-icon" mode=""></image>
 				<text class="my-entry-item-text">工单</text>
 			</view>
-			<view class="my-entry-item">
+			<view class="my-entry-item" @click="onRouter('')">
 				<image src="../../static/my/my_icon_11@2x.png" class="my-entry-item-icon" mode=""></image>
 				<text class="my-entry-item-text">合伙人</text>
 			</view>
@@ -123,23 +123,25 @@
 </template>
 
 <script>
-	import * as services from '@/ants/services/index.js';
 	export default {
 		data() {
 			return {
-				mineInfo: {}
+				
 			};
-		},
-		async mounted() {
-			const response = await services.mineIndex();
-			this.mineInfo = response;
 		},
 		methods:{
 			onRouter(url){
-				uni.navigateTo({
-					animationType: 'pop-in',
-					url: url
-				})
+				if (url === '') {
+					uni.showToast({
+						icon: 'none',
+						title: '暂未开放'
+					})
+				} else {
+					uni.navigateTo({
+						animationType:"pop-in",
+						url: url
+					})
+				}
 			}
 		}
 	}
@@ -182,8 +184,8 @@
 				}
 			}
 			.copy-btn-icon{
-				width: 25upx;
-				height: 27upx;
+				width: 16upx;
+				height: 18upx;
 				margin-left: 20upx;
 			}
 		}

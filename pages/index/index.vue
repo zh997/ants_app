@@ -16,11 +16,11 @@
 			<view class="notify-wrap-text">{{notice_info.title}}</view>
 		</view>
 		<view class="entry-grid">
-			<view class="entry-grid-item">
+			<view class="entry-grid-item" @click="onRouter('')">
 				<image src="../../static/app_icon_6@2x.png" class="entry-grid-item-icon" mode=""></image>
 			    <text class="entry-grid-item-text">挖矿</text>
 			</view>
-			<view class="entry-grid-item">
+			<view class="entry-grid-item" @click="onRouter('')">
 				<image src="../../static/app_icon_7@2x.png" class="entry-grid-item-icon" mode=""></image>
 			    <text class="entry-grid-item-text">NFT</text>
 			</view>
@@ -32,7 +32,7 @@
 				<image src="../../static/app_icon_5@2x.png" class="entry-grid-item-icon" mode=""></image>
 			    <text class="entry-grid-item-text">邀请好友</text>
 			</view>
-			<view class="entry-grid-item">
+			<view class="entry-grid-item" @click="onRouter('')">
 				<image src="../../static/app_icon_8@2x.png" class="entry-grid-item-icon" mode=""></image>
 			    <text class="entry-grid-item-text">更多</text>
 			</view>
@@ -43,7 +43,7 @@
 				<text class="block-text">算力超市</text>
 			</view>
 			<view class="irregular-block-center">
-				<view class="irregular-block-center-item">
+				<view class="irregular-block-center-item" @click="onRouter('')">
 					<image src="../../static/app_icon_3@2x.png" class="block-icon" mode=""></image>
 					<text class="block-text">场外交易</text>
 				</view>
@@ -52,7 +52,7 @@
 					<text class="block-text">充币</text>
 				</view>
 			</view>
-			<view class="irregular-block-right">
+			<view class="irregular-block-right" @click="onRouter('')">
 				<text class="block-text">看广告赢算力</text>
 			</view>
 		</view>
@@ -62,7 +62,7 @@
 			<image src="../../static/radius_rect@2x.png" class="main-title-rect" mode=""></image>
 		</view>
 		
-		<view class="card-item">
+		<view class="card-item" @click="onRouter('')">
 			<view class="card-item-header">
 				<view class="card-item-header-title">
 					<image src="../../static/app_icon_13@2x.png" class="card-item-header-icon" mode=""></image>
@@ -122,7 +122,7 @@
 				<text class="card-item-value-largetext green-color">188.18%</text>
 			</view>
 		</view>
-		<view class="card-item">
+		<view class="card-item" @click="onRouter('')">
 			<view class="card-item-header">
 				<view class="card-item-header-title">
 					<image src="../../static/app_icon_12@2x.png" class="card-item-header-icon" mode=""></image>
@@ -187,10 +187,18 @@
 				this.duration = e.target.value
 			},
 			onRouter(url){
-				uni.navigateTo({
-					animationType:"pop-in",
-					url: url
-				})
+				if (url === '') {
+					uni.showToast({
+						icon: 'none',
+						title: '暂未开放'
+					})
+				} else {
+					uni.navigateTo({
+						animationType:"pop-in",
+						url: url
+					})
+				}
+				
 			},
 		}
 	}

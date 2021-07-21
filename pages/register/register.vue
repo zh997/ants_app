@@ -62,8 +62,8 @@
 			<view class="primary-btn marginBottom" @click="onSubmit">
 				注册
 			</view>
-			<view class="primary-btn" @click="onLogin">
-				登录
+			<view class="login-tips">
+			  <text>已有账号？<text class="green-color" @click="onLogin">立即登录</text></text>
 			</view>
 		</view>
 		<image src="../../static/login/register_bg@2x.png" class="page-bg" mode=""></image>
@@ -84,6 +84,10 @@
 				secends: 60,
 				timer: null,
 			};
+		},
+		onLoad(options) {
+			console.log(options);
+			if (options.ucode) this.ucode = options.ucode;
 		},
 		methods: {
 			onLogin(){
@@ -200,6 +204,14 @@
 		.placeholder-class{
 			font-size: 30.2upx;
 			color: @color-2133B4;
+		}
+		.login-tips{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			color: #fff;
+			font-size: 26upx;
+			margin-top: 50upx;
 		}
 	}
 	
