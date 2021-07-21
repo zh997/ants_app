@@ -3,7 +3,7 @@
 		<Navbar title="设置"/>
 		<view class="setting-page">
 			<view class="setting-items">
-				<view class="setting-item" @click="onRouter('/pages/accounts_security/accounts_security')">
+				<view class="setting-item" @click="$onRouter('/pages/accounts_security/accounts_security')">
 					<view class="setting-item-label">
 						<image src="../../static/app_icon_27@2x.png" class="setting-item-icon" mode=""></image>
 						<text>账户与安全</text>
@@ -17,7 +17,7 @@
 					</view>
 					<image src="../../static/icon_right_arrow@2x.png" class="arrow-icon" mode=""></image>
 				</view>
-				<view class="setting-item">
+				<view class="setting-item" @click="onVersionUpdate">
 					<view class="setting-item-label">
 						<image src="../../static/app_icon_37@2x.png" class="setting-item-icon" mode=""></image>
 						<text>版本更新</text>
@@ -64,10 +64,18 @@
 					url: '/pages/login/login'
 				})
 			},
-			onRouter(path){
-				uni.navigateTo({
-					animationType: "pop-in",
-					url: path
+			async onVersionUpdate() {
+				uni.showLoading({
+					title: '正在检查更新'
+				})
+				const res = await services.appVersion();
+				uni.showModal({
+					showCancel:false,
+					title: res.name,
+					content: '已是最新版本：' + res.version,
+					complete() {
+						uni.hideLoading();
+					}
 				})
 			}
 		}

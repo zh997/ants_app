@@ -3,15 +3,15 @@
 		<Navbar title="USDT充值"/>
 		<view class="recharge-qrcode">
 			<image src="../../static/qrcode_bg@2x.png" class="recharge-qrcode-bg" mode=""></image>
-		    <image src="../../static/qrcode_img@2x.png" class="recharge-qrcode-img" mode=""></image>
+		    <image :src="walletRecharge.qrcode_url" class="recharge-qrcode-img" mode=""></image>
 		</view>
 		<view class="recharge-address">
 			<view class="recharge-address-title">
 				<text>充币地址</text>
-				<text class="green-color">复制</text>
+				<text class="green-color" @click="onCopy">复制</text>
 			</view>
 			<view class="recharge-address-link">
-				https://www.baidu.com/dasjffa/ad1/11111
+				{{walletRecharge.address}}
 			</view>
 		</view>
 		<view class="recharge-linktype">
@@ -20,14 +20,14 @@
 			</view>
 			<view class="recharge-linktype-btns">
 				<view class="recharge-linktype-item selected-linktype">
-					TRX
+					{{walletRecharge.coin_type}}
 				</view>
-				<view class="recharge-linktype-item">
+				<!-- <view class="recharge-linktype-item">
 					ETH
 				</view>
 				<view class="recharge-linktype-item">
 					HSC
-				</view>
+				</view> -->
 			</view>
 		</view>
 		<view class="page-bg"></view>
@@ -36,14 +36,26 @@
 
 <script>
 	import Navbar from '@/components/navbar.vue';
+	import * as services from '@/ants/services/index.js';
 	export default {
 		components:{
 			Navbar
 		},
 		data() {
 			return {
-				
+				walletRecharge: {}
 			};
+		},
+		async mounted() {
+			uni.showLoading();
+			const walletRecharge = await services.walletRecharge();
+			this.walletRecharge = walletRecharge;
+			uni.hideLoading();
+		},
+		methods: {
+			onCopy(){
+				this.$copy(this.walletRecharge.address)
+			}
 		}
 	}
 </script>

@@ -36,12 +36,17 @@ export async function walletWithdraw(data) {
 	return await request.send(api.wallet_withdraw, 'POST',  data);
 }
 
+/** 提币详情 */
+export async function walletWithdrawInfo(data) {
+	return await request.send(api.wallet_withdraw, 'GET',  data);
+}
+
 /** 修改登陆密码 */
 export async function updatePwd(data, type) {
 	let url = ''
-	if (type === '1') {
+	if (type === 1) {
 		url = api.update_pwd
-	} else if(type === '2') {
+	} else if(type === 2) {
 		url = api.update_pwd2
 	}
 	console.log(url, type)
@@ -56,5 +61,95 @@ export async function withdrawRecord(data) {
 /** 忘记密码 */
 export async function forgetPwd(data) {
 	return await request.send(api.forget_password, 'POST',  data);
+}
+
+// 邀请数据
+export async function shareData(data) {
+	return await request.send(api.user_myshare, 'POST',  data);
+}
+
+// 我的团队
+export async function userMyTeam(data) {
+	return await request.send(api.user_myteam, 'POST',  data);
+}
+
+// 邀请码
+export async function userShare(data) {
+	return await request.send(api.user_share, 'POST',  data);
+}
+
+// 是否已设置交易密码
+export async function userSafeset(data) {
+	return await request.send(api.user_safeset, 'POST',  data);
+}
+
+// 版本号
+export async function appVersion(data) {
+	return await request.send(api.app_version, 'POST',  data);
+}
+
+// 我的资产
+export async function walletMystore(data) {
+	return await request.send(api.wallet_mystore, 'POST',  data);
+}
+
+// 充值
+export async function walletCoin(data) {
+	return await request.send(api.wallet_coin, 'GET',  data);
+}
+
+// 充值详情
+export async function walletRecharge(data) {
+	return await request.send(api.wallet_recharge, 'POST',  data);
+}
+
+// 币种介绍
+export async function walletCoinDetail(data) {
+	return await request.send(api.wallet_coin_detail, 'POST',  data);
+}
+
+// 我的收益
+export async function walletRecordData(data) {
+	return await request.send(api.wallet_record_data, 'POST',  data);
+}
+
+// 充币记录
+export async function walletRechargeRecord(data) {
+	return await request.send(api.wallet_recharge_record, 'POST',  data);
+}
+
+// 兑换记录
+export async function walletExchargeRecord(data) {
+	return await request.send(api.wallet_exchange_record, 'POST',  data);
+}
+
+// 质押记录
+export async function walletPledgeRecord(data) {
+	return await request.send(api.wallet_pledge_record, 'POST',  data);
+}
+
+// 收益记录
+export async function walletRecord(data) {
+	return await request.send(api.wallet_record, 'POST',  data);
+}
+
+// 兑换
+export async function exchargeIndex(data) {
+	return await request.send(api.exchange_index, 'GET',  data);
+}
+
+// 提交兑换
+export async function postExchargeIndex(data) {
+	return await request.send(api.exchange_index, 'POST',  data);
+}
+
+// 公告列表
+export async function noticeList(data) {
+	return await request.send(api.notice_list, 'POST',  data);
+}
+
+// 公告列表
+export async function noticeDetail(data) {
+	return await request.send(api.notice_detail, 'POST',  data);
 }
 

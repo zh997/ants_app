@@ -81,4 +81,9 @@
 			margin-left: 34upx;
 		}
 	}
+	.mphtml{
+		._span,.undefined{
+			color: #fff !important;
+		}
+	}
 </style>

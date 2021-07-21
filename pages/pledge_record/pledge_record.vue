@@ -1,30 +1,30 @@
 <template>
 	<view>
-		<Navbar title="充币记录"/>
+		<Navbar title="质押记录"/>
 		<view class="record-page">
-			<view class="record-item" v-for="item in walletRechargeRecord" :key="item.id">
+			<view class="record-item" v-for="item,index in recordList" :key="item.no">
 				<view class="record-item-row">
 					<view class="record-item-label">
-						充值数量：
+						矿池：
+					</view>
+					<view class="record-item-value">
+						{{item.pool_title}}
+					</view>
+				</view>
+				<view class="record-item-row">
+					<view class="record-item-label">
+						质押时间：
+					</view>
+					<view class="record-item-value">
+						{{item.create_time}}
+					</view>
+				</view>
+				<view class="record-item-row">
+					<view class="record-item-label">
+						质押数量：
 					</view>
 					<view class="record-item-value">
 						{{item.money}}
-					</view>
-				</view>
-				<view class="record-item-row">
-					<view class="record-item-label">
-						充值时间：
-					</view>
-					<view class="record-item-value">
-						{{money.create_time}}
-					</view>
-				</view>
-				<view class="record-item-row">
-					<view class="record-item-label">
-						订单状态：
-					</view>
-					<view class="record-item-value">
-						{{item.status === 1 ? '已完成' : '未完成'}}
 					</view>
 				</view>
 			</view>
@@ -42,14 +42,14 @@
 		},
 		data() {
 			return {
-				walletRechargeRecord: {}
+				recordList: []
 			};
 		},
 		async mounted() {
 			uni.showLoading();
-			const response = await services.walletRechargeRecord();
+			const response = await services.walletPledgeRecord();
 			uni.hideLoading();
-			this.walletRechargeRecord = response;
+			this.recordList = response;
 		}
 	}
 </script>

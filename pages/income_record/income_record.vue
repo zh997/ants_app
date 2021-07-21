@@ -1,11 +1,11 @@
 <template>
 	<view>
-		<Navbar title="充币记录"/>
+		<Navbar title="收益记录"/>
 		<view class="record-page">
-			<view class="record-item" v-for="item in walletRechargeRecord" :key="item.id">
+			<view class="record-item" v-for="item,index in recordList" :key="item.no">
 				<view class="record-item-row">
 					<view class="record-item-label">
-						充值数量：
+						收益数量：
 					</view>
 					<view class="record-item-value">
 						{{item.money}}
@@ -13,18 +13,26 @@
 				</view>
 				<view class="record-item-row">
 					<view class="record-item-label">
-						充值时间：
+						收益币种：
 					</view>
 					<view class="record-item-value">
-						{{money.create_time}}
+						{{item.mtype}}
 					</view>
 				</view>
 				<view class="record-item-row">
 					<view class="record-item-label">
-						订单状态：
+						收益类型：
 					</view>
 					<view class="record-item-value">
-						{{item.status === 1 ? '已完成' : '未完成'}}
+						{{item.type}}
+					</view>
+				</view>
+				<view class="record-item-row">
+					<view class="record-item-label">
+						收益时间：
+					</view>
+					<view class="record-item-value">
+						{{item.create_time}}
 					</view>
 				</view>
 			</view>
@@ -42,14 +50,14 @@
 		},
 		data() {
 			return {
-				walletRechargeRecord: {}
+				recordList: []
 			};
 		},
 		async mounted() {
 			uni.showLoading();
-			const response = await services.walletRechargeRecord();
+			const response = await services.walletRecord();
 			uni.hideLoading();
-			this.walletRechargeRecord = response;
+			this.recordList = response;
 		}
 	}
 </script>

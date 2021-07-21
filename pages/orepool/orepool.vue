@@ -12,7 +12,7 @@
 						    <text class="card-item-header-status">运行中</text>
 						</view>
 					</view>
-					<view class="card-item-header-btn" @click="onRouter('/pages/swapant_orepool/swapant_orepool')">
+					<view class="card-item-header-btn" @click="$onRouter('/pages/swapant_orepool/swapant_orepool')">
 						立即质押
 					</view>
 				</view>
@@ -42,12 +42,6 @@
 			};
 		},
 		methods:{
-			onRouter(path){
-				uni.navigateTo({
-					animationType: "pop-in",
-					url: path
-				})
-			}
 		}
 	}
 </script>

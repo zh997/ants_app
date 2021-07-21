@@ -5,74 +5,115 @@
 			<view class="navbar-wrap-title">
 				兑换
 			</view>
-			<view class="navbar-wrap-sufix">
+			<view class="navbar-wrap-sufix" @click="$onRouter('/pages/exchange_recharge/exchange_recharge')">
 				兑换记录
 			</view>
 		</view>
-		<view class="exchange-address">
+		<!-- <view class="exchange-address">
 			<view class="exchange-address-label">
 				矿池总抵押
 			</view>
 			<view class="exchange-address-value">
 				dsgahahkajhoiahjfoiahogiaitsdgaghasuidga
 			</view>
-		</view>
+		</view> -->
 		<view class="blance-card">
-			<view class="blance-card-item">
-				<view class="blance-card-item-label">
-					<image src="../../static/app_icon_32@2x.png" class="blance-card-item-icon" mode=""></image>
-					<view class="blance-card-item-info">
-						<view class="small-text">可用余额</view>
-						<view class="info-text">0 USDT</view>
-						<view class="small-text">1 USDT ≈ 5.123456 SWA</view>
+			<view class="" v-for="item,index in sortExcharge" :key="index">
+				<view class="blance-card-item" >
+					<view class="blance-card-item-label">
+						<image :src="item === '1' ? '../../static/app_icon_32@2x.png' : '../../static/app_icon_33@2x.png'" class="blance-card-item-icon" mode=""></image>
+						<view class="blance-card-item-info">
+							<view class="small-text">可用余额</view>
+							<view class="info-text">{{exchargeIndex[item].balance}} {{item === '1' ? 'USDT' : 'SWA'}}</view>
+							<view class="small-text">1 {{item === '1' ? 'USDT' : 'SWA'}} ≈ {{exchargeIndex[item].convert}} {{item === '2' ? 'USDT' : 'SWA'}}</view>
+						</view>
+					</view>
+					<view class="blance-card-item-btn" :class=" item === '1' ? 'green-btn' : ''">
+						<text>{{item === '1' ? 'USDT' : 'SWA'}}</text>
+						<!-- <image src="../../static/icon_down_arrow@2x.png" class="icon_down_arrow" mode=""></image> -->
 					</view>
 				</view>
-				<view class="blance-card-item-btn">
-					<text>USDT</text><image src="../../static/icon_down_arrow@2x.png" class="icon_down_arrow" mode=""></image>
-				</view>
+				<view class="blance-card-item-line" v-if="index < sortExcharge.length - 1 "></view>
 			</view>
-			<view class="blance-card-item-line"></view>
-			<view class="blance-card-item">
-				<view class="blance-card-item-label">
-					<image src="../../static/app_icon_32@2x.png" class="blance-card-item-icon" mode=""></image>
-					<view class="blance-card-item-info">
-						<view class="small-text">可用余额</view>
-						<view class="info-text">0 USDT</view>
-						<view class="small-text">1 USDT ≈ 5.123456 SWA</view>
-					</view>
-				</view>
-				<view class="blance-card-item-btn green-btn">
-					<text>SWA</text><image src="../../static/icon_down_arrow@2x.png" class="icon_down_arrow" mode=""></image>
-				</view>
-			</view>
-			<image src="../../static/app_icon_34@2x.png" class="refresh-btn" mode=""></image>
+			<image src="../../static/app_icon_34@2x.png" class="refresh-btn" mode="" @click="onSort"></image>
 		</view>
-		<view class="exchange-form-label">USDT 兑换 SWA (手续费：100 USDT)</view>
+		<view class="exchange-form-label">{{type === '1' ? 'USDT' : 'SWA' }} 兑换 {{type === '2' ? 'USDT' : 'SWA' }} (手续费：{{fromBalnce.fee}}% {{type === '1' ? 'USDT' : 'SWA' }})</view>
 		<view class="exchange-input-wrap">
 			<view class="exchange-input-label">
-				<image src="../../static/app_icon_32@2x.png" class="exchange-input-label-icon" mode=""></image>
+				<image :src="type=== '1' ? '../../static/app_icon_32@2x.png' : '../../static/app_icon_33@2x.png'" class="exchange-input-label-icon" mode=""></image>
 			    <view class="exchange-input-label-line"></view>
 			</view>
-			<input type="text" value="" placeholder="请输入兑换金额" class="exchange-input" placeholder-class="exchange-input-placeholder"/>
-		    <text class="exchange-input-sufix">全部</text>
+			<input type="number" v-model="num" placeholder="请输入兑换金额" class="exchange-input" placeholder-class="exchange-input-placeholder"/>
+		    <text class="exchange-input-sufix" @click="onPaseAll">全部</text>
 		</view>
-		<view class="primary-btn">
+		<view class="primary-btn" @click="onExcharge">
 			兑换
 		</view>
 	</view>
 </template>
 
 <script>
+	import * as services from '@/ants/services/index.js';
 	export default {
 		components:{
 		},
 		data() {
 			return {
-	
+	           exchargeIndex: {},
+			   sortExcharge: [],
+			   num: '',
+			   type: '0',
+			   fromBalnce: {}
 			};
 		},
-		onShow() {
-
+		async mounted() {
+			uni.showLoading();
+			const response = await services.exchargeIndex();
+			uni.hideLoading();
+			this.exchargeIndex = response;
+			this.sortExcharge = Object.keys(response);
+			this.type = this.sortExcharge[0];
+			this.fromBalnce = response[this.sortExcharge[0]];
+		},
+		methods:{
+			onSort(){
+				const sort = []
+				const sortExcharge = [...this.sortExcharge];
+				sort[0] = sortExcharge[1];
+				sort[1] = sortExcharge[0];
+				this.type = sort[0];
+				this.fromBalnce = this.exchargeIndex[sort[0]];
+				this.sortExcharge = sort;
+				this.num = '';
+			},
+			onPaseAll(){
+				this.num = this.fromBalnce.balance;
+			},
+			async onExcharge(){
+				if (!this.num){
+					return uni.showToast({
+						icon: 'none',
+						title: '请入兑换数量'
+					})
+				}
+				if (!/^[0-9]*[1-9][0-9]*$/.test(this.num)) {
+					return uni.showToast({
+						icon: 'none',
+						title: '请入正整数'
+					})
+				}
+				uni.showLoading({
+				  title: '兑换中'	
+				})
+				const res = await services.postExchargeIndex({
+					num: this.num,
+					type: this.type
+				});
+				uni.showToast({
+					icon: 'success',
+					title: '兑换成功'
+				})
+			}
 		}
 	}
 </script>

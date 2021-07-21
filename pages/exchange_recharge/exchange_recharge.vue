@@ -1,11 +1,19 @@
 <template>
 	<view>
-		<Navbar title="充币记录"/>
+		<Navbar title="兑换记录"/>
 		<view class="record-page">
-			<view class="record-item" v-for="item in walletRechargeRecord" :key="item.id">
+			<view class="record-item" v-for="item,index in recordList" :key="item.no">
 				<view class="record-item-row">
 					<view class="record-item-label">
-						充值数量：
+						兑换币种：
+					</view>
+					<view class="record-item-value">
+						{{item.mtype}}
+					</view>
+				</view>
+				<view class="record-item-row">
+					<view class="record-item-label">
+						兑换数量：
 					</view>
 					<view class="record-item-value">
 						{{item.money}}
@@ -13,10 +21,10 @@
 				</view>
 				<view class="record-item-row">
 					<view class="record-item-label">
-						充值时间：
+						兑换时间：
 					</view>
 					<view class="record-item-value">
-						{{money.create_time}}
+						{{item.create_time}}
 					</view>
 				</view>
 				<view class="record-item-row">
@@ -42,14 +50,14 @@
 		},
 		data() {
 			return {
-				walletRechargeRecord: {}
+				recordList: []
 			};
 		},
 		async mounted() {
 			uni.showLoading();
-			const response = await services.walletRechargeRecord();
+			const response = await services.walletExchargeRecord();
 			uni.hideLoading();
-			this.walletRechargeRecord = response;
+			this.recordList = response;
 		}
 	}
 </script>

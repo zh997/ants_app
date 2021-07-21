@@ -2,7 +2,7 @@
 	<view>
 		<Navbar title="账户安全"/>
 		<view class="setting-page">
-			<view class="setting-item marginBottom" @click="onRouter('/pages/accounts_security/accounts_security')">
+			<view class="setting-item marginBottom" @click="$onRouter('/pages/accounts_security/accounts_security')">
 				<view class="setting-item-label">
 					<!-- <image src="../../static/app_icon_27@2x.png" class="setting-item-icon" mode=""></image> -->
 					<text>邮箱验证</text>
@@ -10,17 +10,17 @@
 				<text class="setting-item-value">8888888@qq.com</text>
 			</view>
 			<view class="setting-items">
-				<view class="setting-item" @click="onRouter('/pages/update_pwd/update_pwd?type=1')">
+				<view class="setting-item" @click="$onRouter(`/pages/update_pwd/update_pwd?type=1&is_safe=${is_safe}`)">
 					<view class="setting-item-label">
 						<!-- <image src="../../static/app_icon_27@2x.png" class="setting-item-icon" mode=""></image> -->
 						<text>修改登录密码</text>
 					</view>
 					<image src="../../static/icon_right_arrow@2x.png" class="arrow-icon" mode=""></image>
 				</view>
-				<view class="setting-item" @click="onRouter('/pages/update_pwd/update_pwd?type=2')">
+				<view class="setting-item" @click="$onRouter(`/pages/update_pwd/update_pwd?type=2&is_safe=${is_safe}`)">
 					<view class="setting-item-label">
 						<!-- <image src="../../static/app_icon_28@2x.png" class="setting-item-icon" mode=""></image> -->
-						<text>修改交易密码</text>
+						<text>{{is_safe === 1 ? '修改' : '设置'}}交易密码</text>
 					</view>
 					<image src="../../static/icon_right_arrow@2x.png" class="arrow-icon" mode=""></image>
 				</view>
@@ -41,8 +41,13 @@
 		data() {
 			return {
 				show: false,
+				is_safe: 0,
 				content: '确定退出当前账号吗？'
 			};
+		},
+		async mounted() {
+			const response = await services.userSafeset();
+			this.is_safe = response.is_safe;
 		},
 		methods:{
 			onShowModal(){
@@ -55,12 +60,6 @@
 				uni.removeStorageSync('authtoken');
 				uni.reLaunch({
 					url: '/pages/login/login'
-				})
-			},
-			onRouter(path){
-				uni.navigateTo({
-					animationType: "pop-in",
-					url: path
 				})
 			}
 		}

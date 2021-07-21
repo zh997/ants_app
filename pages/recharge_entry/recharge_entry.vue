@@ -9,17 +9,17 @@
 			    		我的资产
 			    	</view>
 			    	<view class="property-info-value">
-			    		0 SWAPANT
+			    		{{walletCoin.usdt}} USDT
 			    	</view>
 			    </view>
 			</view>
-			<view class="entry-listitem" @click="onRouter('/pages/recharge/recharge')">
+			<!-- <view class="entry-listitem" @click="onRouter('/pages/recharge/recharge')">
 				<image src="../../static/app_icon_33@2x.png" class="entry-listitem-icon" mode=""></image>
 				<view class="entry-listitem-info">
 					<text class="green-color">SWA</text>
 					<text class="item-type">热门</text>
 				</view>
-			</view>
+			</view> -->
 			<view class="entry-listitem" @click="onRouter('/pages/recharge/recharge')">
 				<image src="../../static/app_icon_32@2x.png" class="entry-listitem-icon" mode=""></image>
 				<view class="entry-listitem-info">
@@ -34,22 +34,36 @@
 
 <script>
 	import Navbar from '@/components/navbar.vue';
+	import * as services from '@/ants/services/index.js';
 	export default {
 		components:{
 			Navbar
 		},
 		data() {
 			return {
-				
+				walletCoin: {}
 			};
 		},
-		methods:{
+		async mounted() {
+			uni.showLoading();
+			const walletCoin = await services.walletCoin();
+			this.walletCoin = walletCoin;
+			uni.hideLoading();
+		},
+		methods: {
 			onRouter(url){
-				uni.navigateTo({
-					animationType:"pop-in",
-					url: url
-				})
-			}
+				if (url === '') {
+					uni.showToast({
+						icon: 'none',
+						title: '暂未开放'
+					})
+				} else {
+					uni.navigateTo({
+						animationType:"pop-in",
+						url: url
+					})
+				}
+			},
 		}
 	}
 </script>

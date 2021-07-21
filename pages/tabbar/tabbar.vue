@@ -100,7 +100,7 @@
     align-items: center;
 	border-radius: 10px;
 	padding: 0 10upx;
-	box-shadow: 0upx 0upx 10upx fade(#fff, 20);
+	box-shadow: 0upx 0upx 10upx fade(#fff, 10);
 	box-sizing: border-box;
 	.tabbar-item{
 		width: 20%;

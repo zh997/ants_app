@@ -1,30 +1,38 @@
 <template>
 	<view>
-		<Navbar title="充币记录"/>
+		<Navbar title="邀请人记录"/>
 		<view class="record-page">
-			<view class="record-item" v-for="item in walletRechargeRecord" :key="item.id">
+			<view class="record-item" v-for="item,index in recordList" :key="item.no">
 				<view class="record-item-row">
 					<view class="record-item-label">
-						充值数量：
+						数量：
 					</view>
 					<view class="record-item-value">
-						{{item.money}}
+						{{item.team_count}}
 					</view>
 				</view>
 				<view class="record-item-row">
 					<view class="record-item-label">
-						充值时间：
+						邀请人邮箱：
 					</view>
 					<view class="record-item-value">
-						{{money.create_time}}
+						{{item.account}}
 					</view>
 				</view>
 				<view class="record-item-row">
 					<view class="record-item-label">
-						订单状态：
+						邀请时间：
 					</view>
 					<view class="record-item-value">
-						{{item.status === 1 ? '已完成' : '未完成'}}
+						{{item.regtime}}
+					</view>
+				</view>
+				<view class="record-item-row">
+					<view class="record-item-label">
+						邀请类型：
+					</view>
+					<view class="record-item-value">
+					    {{item.is_tui === 1 ? '直接邀请人': '间接邀请人'}}
 					</view>
 				</view>
 			</view>
@@ -42,14 +50,14 @@
 		},
 		data() {
 			return {
-				walletRechargeRecord: {}
+				recordList: []
 			};
 		},
 		async mounted() {
 			uni.showLoading();
-			const response = await services.walletRechargeRecord();
+			const response = await services.userMyTeam();
 			uni.hideLoading();
-			this.walletRechargeRecord = response;
+			this.recordList = response;
 		}
 	}
 </script>

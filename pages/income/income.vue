@@ -9,7 +9,7 @@
 			    		总收益
 			    	</view>
 			    	<view class="property-info-value">
-			    		0 USDT
+			    		{{walletRecordData.total_money || '0.00'}} USDT
 			    	</view>
 			    </view>
 			</view>
@@ -19,7 +19,7 @@
 						昨日收益
 					</view>
 					<view class="income-count-item-count green-color">
-						0
+						{{walletRecordData.yester_money || '0.00'}}
 					</view>
 				</view>
 				<view class="income-count-item">
@@ -27,7 +27,7 @@
 						静态收益
 					</view>
 					<view class="income-count-item-count green-color">
-						0
+						{{walletRecordData.income_money || '0.00'}}
 					</view>
 				</view>
 				<view class="income-count-item">
@@ -35,7 +35,7 @@
 						动态收益
 					</view>
 					<view class="income-count-item-count green-color">
-						0
+						{{walletRecordData.dynamic_money || '0.00'}}
 					</view>
 				</view>
 				<view class="income-count-item">
@@ -43,7 +43,7 @@
 						直推收益
 					</view>
 					<view class="income-count-item-count green-color">
-						0
+						{{walletRecordData.tui_money || '0.00'}}
 					</view>
 				</view>
 			</view>
@@ -54,15 +54,22 @@
 
 <script>
 	import Navbar from '@/components/navbar.vue';
+	import * as services from '@/ants/services/index.js';
 	export default {
 		components:{
 			Navbar
 		},
 		data() {
 			return {
-				
+				walletRecordData: {}
 			};
-		}
+		},
+		async mounted() {
+			uni.showLoading();
+			const res = await services.walletRecordData();
+			uni.hideLoading();
+			this.walletRecordData = res;
+		},
 	}
 </script>
 

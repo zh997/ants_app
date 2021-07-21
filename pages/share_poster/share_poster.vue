@@ -17,10 +17,10 @@
 					长按扫描下方二维码
 				</view>
 				<view class="share-poster-qrcode-wrap">
-					<image src="../../static/qrcode_img@2x.png" class="share-poster-qrcode-img" mode=""></image>
+					<image :src="shareCode.qrcode" class="share-poster-qrcode-img" mode=""></image>
 				</view>
 			</view>
-			<view class="primary-btn">
+			<view class="primary-btn" @click="onCopy">
 				复制邀请链接
 			</view>
 		</view>
@@ -30,14 +30,26 @@
 
 <script>
 	import Navbar from '@/components/navbar.vue';
+	import * as services from '@/ants/services/index.js';
 	export default {
 		components:{
 			Navbar
 		},
 		data() {
 			return {
-				
+				shareCode:{}
 			};
+		},
+		async mounted() {
+			uni.showLoading();
+			const shareCode = await services.userShare();
+			this.shareCode = shareCode;
+			uni.hideLoading();
+		},
+		methods:{
+			onCopy(){
+			   this.$copy(this.shareCode.share_url)
+			} 
 		}
 	}
 </script>
@@ -87,7 +99,7 @@
 		}
 		&-img{
 			width: 100%;
-			height: 100upx;
+			height: 100%;
 		}
 	}
 }

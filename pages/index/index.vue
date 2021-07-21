@@ -10,7 +10,7 @@
 				<image :src="item.cover" class="banner-item" mode=""></image>
 			</swiper-item>
 		</swiper>
-		<view class="notify-wrap">
+		<view class="notify-wrap" @click="$onRouter('/pages/notice_list/notice_list')">
 			<image src="../../static/app_icon_1@2x.png" class="notify-wrap-icon" mode=""></image>
 			<view class="notify-wrap-line"></view>
 			<view class="notify-wrap-text">{{notice_info.title}}</view>
@@ -169,7 +169,9 @@
 			}
 		},
 		async mounted() {
+			uni.showLoading();
 			const response = await services.homeIndex();
+			uni.hideLoading();
 			this.banner_list = response.banner_list;
 			this.notice_info = response.notice_info;
 		},

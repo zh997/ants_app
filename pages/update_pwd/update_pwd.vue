@@ -1,15 +1,15 @@
 <template>
 	<view>
-		<Navbar :title="title"/>
+		<Navbar :title="oper + title + '密码'"/>
 		<view class="update-pwd-page">
 			<view class="login-form-wrap">
-				<view class="exchange-form-label">当前使用的密码</view>
+				<view class="exchange-form-label">{{is_safe === 0 && type === 2 ? '登录密码' : '旧密码'}}</view>
 				<view class="exchange-input-wrap">
 					<view class="exchange-input-label">
 						<image src="../../static/login/user_icon@2x.png" class="exchange-input-label-icon" mode=""></image>
 					    <view class="exchange-input-label-line"></view>
 					</view>
-					<input type="text" v-model="oldpwd" placeholder="请输入旧密码" class="exchange-input" placeholder-class="exchange-input-placeholder"/>
+					<input type="password" v-model="oldpwd" :placeholder="is_safe === 0 && type === 2 ? '请输入登录密码' : '请输入旧'+ title +'密码' " class="exchange-input" placeholder-class="exchange-input-placeholder"/>
 				    <!-- <text class="exchange-input-sufix">全部</text> -->
 				</view>
 			</view>
@@ -56,19 +56,23 @@
 		},
 		data() {
 			return {
-				type: '',
-				title: '',
+				type: 0,
+				is_safe: 0,
+				oper: '修改',
+				title: '登录',
 				oldpwd: '',
 				newpwd: '',
 				newpwd2: ''
 			};
 		},
 		onLoad(query) {
-			this.type = query.type;
-			if (query.type === '1') {
-				this.title = '修改登录密码';
-			} else if(query.type === '2') {
-				this.title = '修改交易密码';
+			this.type = Number(query.type);
+			this.is_safe = Number(query.is_safe);
+			if (this.type === 2) {
+				this.title = '交易';
+			}
+			if (this.type === 2 && this.is_safe === 0) {
+				this.oper = '设置';
 			}
 		},
 		methods:{
@@ -78,15 +82,21 @@
 					newpwd: this.newpwd,
 					newpwd2: this.newpwd2
 				}
+				uni.showLoading();
 				await services.updatePwd(data, this.type);
-				uni.navigateBack({
-					delta: 1,
-					animationType: "slide-out-right",
-					success: () => {
-						uni.showToast({
-							icon: 'success',
-							title: '修改成功'
-						})
+				uni.showToast({
+					icon: 'success',
+					title: `${this.oper}成功`,
+					success() {
+						const timer = setTimeout(() => {
+							uni.navigateBack({
+								delta: 1,
+								animationType: "slide-out-right",
+								success: () => {
+									clearTimeout(timer);
+								}
+							})
+						}, 1500)
 					}
 				})
 			}

@@ -40,7 +40,9 @@
 						订单状态：
 					</view>
 					<view class="record-item-value">
-						{{item.status}}
+						{{item.status === 0 && '未审核'}}
+						{{item.status === 1 && '已审核'}}
+						{{item.status === 2 && '审核失败'}}
 					</view>
 				</view>
 			</view>
@@ -62,7 +64,9 @@
 			};
 		},
 		async mounted() {
+			uni.showLoading();
 			const response = await services.withdrawRecord();
+			uni.hideLoading();
 			this.recordList = response;
 		}
 	}

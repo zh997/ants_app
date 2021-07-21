@@ -75,7 +75,10 @@
     },
     "h5" : {
         "router" : {
-            "base" : "/ants/"
+            "base" : ""
+        },
+        "devServer" : {
+            "https" : true
         }
     }
 }

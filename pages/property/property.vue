@@ -10,19 +10,19 @@
 			</view>
 		</view>
 		<view class="property-entry">
-			<view class="property-entry-item" @click="onRouter('/pages/recharge_entry/recharge_entry')">
+			<view class="property-entry-item" @click="$onRouter('/pages/recharge_entry/recharge_entry')">
 				<image src="../../static/app_icon_20@2x.png" class="property-entry-item-icon" mode=""></image>
 			    <text class="property-entry-item-text">充值</text>
 			</view>
-			<view class="property-entry-item" @click="onRouter('/pages/withdraw/withdraw')">
+			<view class="property-entry-item" @click="$onRouter('/pages/withdraw/withdraw')">
 				<image src="../../static/app_icon_17@2x.png" class="property-entry-item-icon" mode=""></image>
 			    <text class="property-entry-item-text">提币</text>
 			</view>
-			<view class="property-entry-item" @click="onRouter('')">
+			<view class="property-entry-item" @click="$onRouter('')">
 				<image src="../../static/app_icon_19@2x.png" class="property-entry-item-icon" mode=""></image>
 			    <text class="property-entry-item-text">闪电转账</text>
 			</view>
-			<view class="property-entry-item">
+			<view class="property-entry-item" @click="$onRouter('/pages/currency_intro/currency_intro')">
 				<image src="../../static/app_icon_21@2x.png" class="property-entry-item-icon" mode=""></image>
 			    <text class="property-entry-item-text">币种介绍</text>
 			</view>
@@ -34,52 +34,40 @@
 		    		我的资产
 		    	</view>
 		    	<view class="property-info-value">
-		    		{{walletData.usdt}} USDT
+		    		{{mystore.total_usd || '--'}} USDT
 		    	</view>
 		    </view>
 		</view>
-		<view class="property-list-item" @click="onRouter('/pages/income/income')">
+		<view class="property-list-item" @click="$onRouter('/pages/income/income')">
 			<view class="property-list-item-label">
 				<image src="../../static/app_icon_15@2x.png" class="property-list-item-icon" mode=""></image>
 			    <view class="property-list-item-text">我的收益</view>
 			</view>
 			<image src="../../static/icon_right_arrow@2x.png" class="property-list-item-arrow" mode=""></image>
 		</view>
-		<view class="property-list-item" @click="onRouter('/pages/financial/financial')">
+		<view class="property-list-item" @click="$onRouter('/pages/financial/financial')">
 			<view class="property-list-item-label">
 				<image src="../../static/app_icon_16@2x.png" class="property-list-item-icon" mode=""></image>
 			    <view class="property-list-item-text">财务记录</view>
 			</view>
 			<image src="../../static/icon_right_arrow@2x.png" class="property-list-item-arrow" mode=""></image>
 		</view>
-		<view class="preperty-title">
+		<view class="preperty-title" v-if="walletList.length > 0">
 			其他资产
 		</view>
-		<view class="preperty-type-items">
-			<view class="preperty-type-item">
-				<view class="preperty-type-item-label">
-					BTC
-				</view>
-				<view class="preperty-type-item-label">
-					0
-				</view>
-			</view>
-			<view class="preperty-type-item">
-				<view class="preperty-type-item-label">
-					BTH
-				</view>
-				<view class="preperty-type-item-label">
-					0
-				</view>
-			</view>
-			<view class="preperty-type-item">
-				<view class="preperty-type-item-label">
-					USDT
-				</view>
-				<view class="preperty-type-item-label">
-					0
-				</view>
-			</view>
+		
+		<view class="preperty-type-items" v-if="walletList.length > 0">
+		    <view class="" v-for="item,index in walletList" :key="index">
+		    	<view class="preperty-type-item" >
+		    		<view class="preperty-type-item-label">
+		    			{{item.symbol}}
+		    		</view>
+		    		<view class="preperty-type-item-label">
+		    			{{item.balance}}
+		    		</view>
+		    	</view>
+				<view class="preperty-type-item-line" v-if="index < walletList.length - 1"></view>
+		    </view>
 		</view>
 	</view>
 </template>
@@ -89,27 +77,16 @@
 	export default {
 		data() {
 			return {
-				walletData: {}
+				mystore: {},
+				walletList: []
 			};
 		},
 		async mounted() {
-			const response = await services.walletIndex();
-			this.walletData = response;
-		},
-		methods:{
-			onRouter(url){
-				if (url === '') {
-					uni.showToast({
-						icon: 'none',
-						title: '暂未开放'
-					})
-				} else {
-					uni.navigateTo({
-						animationType: "pop-in",
-						url: url
-					})
-				}
-			}
+			uni.showLoading();
+			const [mystore, walletList] = await Promise.all([services.walletMystore(), services.walletIndex()]);
+			uni.hideLoading();
+			this.mystore = mystore;
+			this.walletList = walletList;
 		}
 	}
 </script>
@@ -208,7 +185,7 @@
 		}
 	}
 	.preperty-title{
-		font-size: 16upx;
+		font-size: 24upx;
 		color: #85ABF4;
 		margin: 30upx 0;
 	}
@@ -222,10 +199,14 @@
 			justify-content: space-between;
 			align-items: center;
 			padding: 50upx;
-			border-bottom: 1px solid #0D144E;
+			// border-bottom: 1px solid #0D144E;
 			&-label{
 				font-size: 28upx;
 				color: #fff;
+			}
+			&-line{
+				height: 1px;
+				background-color: #0D144E;
 			}
 		}
 	}

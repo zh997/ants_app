@@ -6,39 +6,39 @@
 				<view class="share-count-item">
 					<image src="../../static/share/share_icon_2@2x.png" class="share-count-item-bg" mode=""></image>
 				    <text class="share-count-item-title">直接邀请奖励</text>
-					<text class="share-count-item-count green-color">0</text>
+					<text class="share-count-item-count green-color">{{shareInfo.tui_award || 0.00}}</text>
 				</view>
 				<view class="share-count-item">
 					<image src="../../static/share/share_icon_4@2x.png" class="share-count-item-bg" mode=""></image>
 				    <text class="share-count-item-title">间接邀请奖励</text>
-					<text class="share-count-item-count green-color">0</text>
+					<text class="share-count-item-count green-color">{{shareInfo.team_award || 0.00}}</text>
 				</view>
 				<view class="share-count-item">
 					<image src="../../static/share/share_icon_5@2x.png" class="share-count-item-bg" mode=""></image>
 				    <text class="share-count-item-title">累积邀请奖励</text>
-					<text class="share-count-item-count green-color">0</text>
+					<text class="share-count-item-count green-color">{{shareInfo.total_award || 0.00}}</text>
 				</view>
 				<view class="share-count-item">
 					<image src="../../static/share/share_icon_1@2x.png" class="share-count-item-bg" mode=""></image>
 				    <text class="share-count-item-title">团队人数</text>
-					<text class="share-count-item-count green-color">0</text>
+					<text class="share-count-item-count green-color">{{shareInfo.team_count || 0}}</text>
 				</view>
 				<view class="share-count-item">
 					<image src="../../static/share/share_icon_3@2x.png" class="share-count-item-bg" mode=""></image>
 				    <text class="share-count-item-title">直推人数</text>
-					<text class="share-count-item-count green-color">0</text>
+					<text class="share-count-item-count green-color">{{shareInfo.tui_count || 0}}</text>
 				</view>
-				<view class="share-count-item">
+				<view class="share-count-item" @click="$onRouter('/pages/share_record/share_record')">
 					<image src="../../static/share/share_icon_6@2x.png" class="share-count-item-bg" mode=""></image>
 				    <text class="share-count-item-title">邀请人记录</text>
-					<text class="share-count-item-count green-color">0</text>
+					<text class="share-count-item-count green-color">{{teamInfo.length || 0}}</text>
 				</view>
 			</view>
 			<view class="share-code-container">
 				<view class="share-code-info">
-					<view class="share-code">SFGAm</view>
-					<image src="../../static/share/share_copy@2x.png" class="share-copy-btn" mode=""></image>
-				    <view class="share-code-btn" @click="onRouter('/pages/share_poster/share_poster')">
+					<view class="share-code">{{shareCode.usercode || '--'}}</view>
+					<image src="../../static/share/share_copy@2x.png" class="share-copy-btn" @click="$copy(shareCode.usercode)" mode=""></image>
+				    <view class="share-code-btn" @click="$onRouter('/pages/share_poster/share_poster')">
 				    	<image src="../../static/share/share_btn@2x.png" class="share-code-btn-bg" mode=""></image>
 				        <text class="share-code-btn-text">邀请海报</text>
 					</view>
@@ -52,23 +52,27 @@
 </template>
 
 <script>
+	
 	import Navbar from '@/components/navbar.vue';
+	import * as services from '@/ants/services/index.js';
 	export default {
 		components:{
 			Navbar
 		},
 		data() {
 			return {
-				
+				shareInfo: {},
+				teamInfo: [],
+				shareCode: {}
 			};
 		},
-		methods:{
-			onRouter(url){
-				uni.navigateTo({
-					animationType: "pop-in",
-					url: url
-				})
-			}
+		async mounted() {
+			uni.showLoading();
+			const [shareInfo, teamInfo, shareCode] = await Promise.all([services.shareData(), services.userMyTeam(),  services.userShare()]);
+			this.shareInfo = shareInfo;
+			this.teamInfo = teamInfo;
+			this.shareCode = shareCode
+			uni.hideLoading();
 		}
 	}
 </script>

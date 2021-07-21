@@ -8,31 +8,34 @@
 	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 	    {
+	    	"path": "pages/tabbar/tabbar",
+	    	"style": {
+	    		"navigationStyle": "custom",
+	    		"navigationBarTextStyle":"white"
+	    	}
+	    },
+		{
 			"path" : "pages/login/login",
 			"style" :                                                                                    
 			{
-			   "navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/tabbar/tabbar",
-			"style": {
-				"navigationStyle": "custom",
-				"navigationBarTextStyle":"white"
+			   "navigationStyle": "custom",
+			   "navigationBarTextStyle":"white"
 			}
 		}
         ,{
             "path" : "pages/login/login",
             "style" :                                                                                    
             {
-               "navigationStyle": "custom"
+               "navigationStyle": "custom",
+			   "navigationBarTextStyle":"white"
             }
         },
 		{
 		    "path" : "pages/register/register",
 		    "style" :                                                                                    
 		    {
-		       "navigationStyle": "custom"
+		       "navigationStyle": "custom",
+			   "navigationBarTextStyle":"white"
 		    }
 		    
 		}
@@ -41,7 +44,8 @@
             "path" : "pages/recharge/recharge",
             "style" :                                                                                    
             {
-               "navigationStyle": "custom"
+               "navigationStyle": "custom",
+			   "navigationBarTextStyle":"white"
             }
             
         }
@@ -49,7 +53,8 @@
             "path" : "pages/recharge_entry/recharge_entry",
             "style" :                                                                                    
             {
-               "navigationStyle": "custom"
+               "navigationStyle": "custom",
+			   "navigationBarTextStyle":"white"
             }
             
         }
@@ -57,7 +62,8 @@
             "path" : "pages/share/share",
             "style" :                                                                                    
             {
-                 "navigationStyle": "custom"
+                 "navigationStyle": "custom",
+				 "navigationBarTextStyle":"white"
             }
             
         }
@@ -65,7 +71,8 @@
             "path" : "pages/share_poster/share_poster",
             "style" :                                                                                    
             {
-                "navigationStyle": "custom"
+                "navigationStyle": "custom",
+				"navigationBarTextStyle":"white"
             }
             
         }
@@ -73,7 +80,8 @@
             "path" : "pages/share_register/share_register",
             "style" :                                                                                    
             {
-               "navigationStyle": "custom"
+               "navigationStyle": "custom",
+			   "navigationBarTextStyle":"white"
             }
             
         }
@@ -81,7 +89,8 @@
             "path" : "pages/income/income",
             "style" :                                                                                    
             {
-                "navigationStyle": "custom"
+                "navigationStyle": "custom",
+				"navigationBarTextStyle":"white"
             }
             
         }
@@ -89,7 +98,8 @@
             "path" : "pages/financial/financial",
             "style" :                                                                                    
             {
-                "navigationStyle": "custom"
+                "navigationStyle": "custom",
+				"navigationBarTextStyle":"white"
             }
             
         }
@@ -97,7 +107,8 @@
             "path" : "pages/public_offering/public_offering",
             "style" :                                                                                    
             {
-                "navigationStyle": "custom"
+                "navigationStyle": "custom",
+				"navigationBarTextStyle":"white"
             }
             
         }
@@ -105,7 +116,8 @@
             "path" : "pages/public_offering_success/public_offering_success",
             "style" :                                                                                    
             {
-               "navigationStyle": "custom"
+               "navigationStyle": "custom",
+			   "navigationBarTextStyle":"white"
             }
             
         }
@@ -113,7 +125,8 @@
             "path" : "pages/withdraw/withdraw",
             "style" :                                                                                    
             {
-               "navigationStyle": "custom"
+               "navigationStyle": "custom",
+			   "navigationBarTextStyle":"white"
             }
             
         }
@@ -121,7 +134,8 @@
             "path" : "pages/suanli_supermarket/suanli_supermarket",
             "style" :                                                                                    
             {
-               "navigationStyle": "custom"
+               "navigationStyle": "custom",
+			   "navigationBarTextStyle":"white"
             }
             
         }
@@ -129,7 +143,8 @@
             "path" : "pages/orepool/orepool",
             "style" :                                                                                    
             {
-                "navigationStyle": "custom"
+                "navigationStyle": "custom",
+				"navigationBarTextStyle":"white"
             }
             
         }
@@ -137,7 +152,8 @@
             "path" : "pages/swapant_orepool/swapant_orepool",
             "style" :                                                                                    
             {
-                 "navigationStyle": "custom"
+                 "navigationStyle": "custom",
+				 "navigationBarTextStyle":"white"
             }
             
         }
@@ -145,7 +161,8 @@
             "path" : "pages/retrieve/retrieve",
             "style" :                                                                                    
             {
-               "navigationStyle": "custom"
+               "navigationStyle": "custom",
+			   "navigationBarTextStyle":"white"
             }
             
         }
@@ -153,7 +170,8 @@
             "path" : "pages/storage/storage",
             "style" :                                                                                    
             {
-                "navigationStyle": "custom"
+                "navigationStyle": "custom",
+				"navigationBarTextStyle":"white"
             }
             
         }
@@ -161,7 +179,8 @@
             "path" : "pages/miner_detail/miner_detail",
             "style" :                                                                                    
             {
-               "navigationStyle": "custom"
+               "navigationStyle": "custom",
+			   "navigationBarTextStyle":"white"
             }
             
         }
@@ -169,7 +188,8 @@
             "path" : "pages/fund/fund",
             "style" :                                                                                    
             {
-                "navigationStyle": "custom"
+                "navigationStyle": "custom",
+				"navigationBarTextStyle":"white"
             }
             
         },
@@ -177,7 +197,8 @@
 		    "path" : "pages/setting/setting",
 		    "style" :                                                                                    
 		    {
-		        "navigationStyle": "custom"
+		        "navigationStyle": "custom",
+				"navigationBarTextStyle":"white"
 		    }
 		    
 		}
@@ -185,7 +206,8 @@
             "path" : "pages/accounts_security/accounts_security",
             "style" :                                                                                    
             {
-                "navigationStyle": "custom"
+                "navigationStyle": "custom",
+				"navigationBarTextStyle":"white"
             }
             
         }
@@ -193,7 +215,8 @@
             "path" : "pages/update_pwd/update_pwd",
             "style" :                                                                                    
             {
-                "navigationStyle": "custom"
+                "navigationStyle": "custom",
+				"navigationBarTextStyle":"white"
             }
             
         }
@@ -201,7 +224,8 @@
             "path" : "pages/recharge_record/recharge_record",
             "style" :                                                                                    
             {
-                "navigationStyle": "custom"
+                "navigationStyle": "custom",
+				"navigationBarTextStyle":"white"
             }
             
         }
@@ -209,7 +233,8 @@
             "path" : "pages/withdraw_record/withdraw_record",
             "style" :                                                                                    
             {
-               "navigationStyle": "custom"
+               "navigationStyle": "custom",
+			   "navigationBarTextStyle":"white"
             }
             
         }
@@ -217,7 +242,71 @@
             "path" : "pages/forget_pwd/forget_pwd",
             "style" :                                                                                    
             {
-                 "navigationStyle": "custom"
+                 "navigationStyle": "custom",
+				 "navigationBarTextStyle":"white"
+            }
+            
+        }
+        ,{
+            "path" : "pages/share_record/share_record",
+            "style" :                                                                                    
+            {
+                "navigationStyle": "custom",
+				"navigationBarTextStyle":"white"
+            }
+            
+        }
+        ,{
+            "path" : "pages/currency_intro/currency_intro",
+            "style" :                                                                                    
+            {
+                "navigationStyle": "custom",
+				"navigationBarTextStyle":"white"
+            }
+            
+        }
+        ,{
+            "path" : "pages/exchange_recharge/exchange_recharge",
+            "style" :                                                                                    
+            {
+               "navigationStyle": "custom",
+			   "navigationBarTextStyle":"white"
+            }
+            
+        }
+        ,{
+            "path" : "pages/pledge_record/pledge_record",
+            "style" :                                                                                    
+            {
+                "navigationStyle": "custom",
+				"navigationBarTextStyle":"white"
+            }
+            
+        }
+        ,{
+            "path" : "pages/income_record/income_record",
+            "style" :                                                                                    
+            {
+                "navigationStyle": "custom",
+				"navigationBarTextStyle":"white"
+            }
+            
+        }
+        ,{
+            "path" : "pages/notice_list/notice_list",
+            "style" :                                                                                    
+            {
+                "navigationStyle": "custom",
+				"navigationBarTextStyle":"white"
+            }
+            
+        }
+        ,{
+            "path" : "pages/notice_detail/notice_detail",
+            "style" :                                                                                    
+            {
+                "navigationStyle": "custom",
+				"navigationBarTextStyle":"white"
             }
             
         }

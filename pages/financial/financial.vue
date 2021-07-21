@@ -2,35 +2,35 @@
 	<view>
 		<Navbar title="财务记录"/>
 		<view class="financial-page">
-			<view class="financial-list-item" @click="onRouter('/pages/recharge_record/recharge_record')">
+			<view class="financial-list-item" @click="$onRouter('/pages/recharge_record/recharge_record')">
 				<view class="financial-list-item-label">
 					<image src="../../static/app_icon_20@2x.png" class="financial-list-item-icon" mode=""></image>
 				    <view class="financial-list-item-text">充币记录</view>
 				</view>
 				<image src="../../static/icon_right_arrow@2x.png" class="financial-list-item-arrow" mode=""></image>
 			</view>
-			<view class="financial-list-item" @click="onRouter('/pages/withdraw_record/withdraw_record')">
+			<view class="financial-list-item" @click="$onRouter('/pages/withdraw_record/withdraw_record')">
 				<view class="financial-list-item-label">
 					<image src="../../static/app_icon_17@2x.png" class="financial-list-item-icon" mode=""></image>
 				    <view class="financial-list-item-text">提币记录</view>
 				</view>
 				<image src="../../static/icon_right_arrow@2x.png" class="financial-list-item-arrow" mode=""></image>
 			</view>
-			<view class="financial-list-item">
+			<view class="financial-list-item" @click="$onRouter('/pages/exchange_recharge/exchange_recharge')">
 				<view class="financial-list-item-label">
 					<image src="../../static/app_icon_36@2x.png" class="financial-list-item-icon" mode=""></image>
 				    <view class="financial-list-item-text">兑换记录</view>
 				</view>
 				<image src="../../static/icon_right_arrow@2x.png" class="financial-list-item-arrow" mode=""></image>
 			</view>
-			<view class="financial-list-item">
+			<view class="financial-list-item" @click="$onRouter('/pages/pledge_record/pledge_record')">
 				<view class="financial-list-item-label">
 					<image src="../../static/app_icon_16@2x.png" class="financial-list-item-icon" mode=""></image>
 				    <view class="financial-list-item-text">质押记录</view>
 				</view>
 				<image src="../../static/icon_right_arrow@2x.png" class="financial-list-item-arrow" mode=""></image>
 			</view>
-			<view class="financial-list-item">
+			<view class="financial-list-item" @click="$onRouter('/pages/income_record/income_record')">
 				<view class="financial-list-item-label">
 					<image src="../../static/app_icon_15@2x.png" class="financial-list-item-icon" mode=""></image>
 				    <view class="financial-list-item-text">收益记录</view>
@@ -52,14 +52,6 @@
 			return {
 				
 			};
-		},
-		methods:{
-			onRouter(path){
-				uni.navigateTo({
-					animationType: "pop-in",
-					url: path
-				})
-			}
 		}
 	}
 </script>
