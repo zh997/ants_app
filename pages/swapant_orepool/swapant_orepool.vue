@@ -9,7 +9,7 @@
 			    		矿池总流动性
 			    	</view>
 			    	<view class="property-info-value">
-			    		0 SWAPANT
+			    		{{poolPledgeview.sys_total_num || 0.00}} SWAPANT
 			    	</view>
 			    </view>
 			</view>
@@ -19,7 +19,7 @@
 						年化收益率
 					</view>
 					<view class="swapant-orepool-item-value">
-						30%~101%
+						{{poolPledgeview.scale || 0.00}}%
 					</view>
 				</view>
 				<view class="swapant-orepool-item">
@@ -27,7 +27,7 @@
 						当前价格
 					</view>
 					<view class="swapant-orepool-item-value">
-						1 SWAPANT≈0.687 USDT
+						1 SWAPANT≈{{poolPledgeview.swa_usdt || 0.00}} USDT
 					</view>
 				</view>
 			</view>
@@ -37,7 +37,7 @@
 						个人质押算力
 					</view>
 					<view class="swapant-orepool-rowitem-value">
-						0
+						{{poolPledgeview.user_pledge_power || 0.00}}
 					</view>
 				</view>
 				<view class="swapant-orepool-rowitem">
@@ -45,7 +45,7 @@
 						个人总算力
 					</view>
 					<view class="swapant-orepool-rowitem-value">
-						0
+						{{poolPledgeview.user_total_power || 0.00}}
 					</view>
 				</view>
 			</view>
@@ -55,11 +55,11 @@
 						年化收益率
 					</view>
 					<view class="swapant-orepool-item-value">
-						30%~101%
+						{{poolPledgeview.scale || 0.00}}%
 					</view>
 				</view>
 				<view class="swapant-orepool-item">
-					<view class="swapant-orepool-collectbtn">
+					<view class="swapant-orepool-collectbtn" @click="onPoolDraw">
 						收取
 					</view>
 				</view>
@@ -79,20 +79,36 @@
 
 <script>
 	import Navbar from '@/components/navbar.vue';
+	import * as services from '@/ants/services/index.js';
+	
 	export default {
 		components:{
 			Navbar
 		},
 		data() {
 			return {
-				
+				poolPledgeview:{}
 			};
+		},
+		async onLoad(option) {
+			uni.showLoading();
+			const res = await services.poolPledgeview();
+			uni.hideLoading();
+			this.poolPledgeview = res;
 		},
 		methods: {
 			onRouter(path){
 				uni.navigateTo({
 					animationType: "pop-in",
 					url: path
+				})
+			},
+			async onPoolDraw() {
+				uni.showLoading();
+				const res = await services.poolDraw();
+				uni.showToast({
+					icon: 'success',
+					title: '收取成功'
 				})
 			}
 		}

@@ -86,4 +86,7 @@
 			color: #fff !important;
 		}
 	}
+	.u-empty{
+		padding: 100upx 0;
+	}
 </style>

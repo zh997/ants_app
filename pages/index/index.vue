@@ -3,56 +3,62 @@
 		<view class="status_bar"></view>
 	 	<view class="index-header">
 	 		<image src="../../static/LOGO3@2x.png" class="index-header-logo" mode=""></image>
-			<text class="index-header-text">Swapant</text>
+			<!-- <text class="index-header-text">Swapant</text> -->
 	 	</view>
-		<swiper class="swiper-wrap" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
+		
+		<swiper class="swiper-wrap" v-if="banner_list && banner_list.length > 0" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
 			<swiper-item v-for="(item,index) in banner_list" :key="index" class="swiper-item">
-				<image :src="item.cover" class="banner-item" mode=""></image>
+				<u-image :src="item.cover || '../../static/banner_1@2x.png'" width="100%" bg-color="#eee" mode="scaleToFill" height="259rpx"></u-image>
+			</swiper-item>
+		</swiper>
+		<swiper class="swiper-wrap" v-else :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
+			<swiper-item class="swiper-item">
+				<u-image src="../../static/banner_1@2x.png" width="100%" bg-color="#eee" mode="scaleToFill" height="259rpx"></u-image>
 			</swiper-item>
 		</swiper>
 		<view class="notify-wrap" @click="$onRouter('/pages/notice_list/notice_list')">
 			<image src="../../static/app_icon_1@2x.png" class="notify-wrap-icon" mode=""></image>
 			<view class="notify-wrap-line"></view>
-			<view class="notify-wrap-text">{{notice_info.title}}</view>
+			<view class="notify-wrap-text">{{notice_info.title || '---'}}</view>
 		</view>
 		<view class="entry-grid">
-			<view class="entry-grid-item" @click="onRouter('')">
+			<view class="entry-grid-item" @click="$onRouter('')">
 				<image src="../../static/app_icon_6@2x.png" class="entry-grid-item-icon" mode=""></image>
 			    <text class="entry-grid-item-text">挖矿</text>
 			</view>
-			<view class="entry-grid-item" @click="onRouter('')">
+			<view class="entry-grid-item" @click="$onRouter('')">
 				<image src="../../static/app_icon_7@2x.png" class="entry-grid-item-icon" mode=""></image>
 			    <text class="entry-grid-item-text">NFT</text>
 			</view>
-			<view class="entry-grid-item" @click="onRouter('/pages/public_offering/public_offering')">
+			<view class="entry-grid-item" @click="$onRouter('')">
 				<image src="../../static/app_icon_9@2x.png" class="entry-grid-item-icon" mode=""></image>
 			    <text class="entry-grid-item-text">公募</text>
 			</view>
-			<view class="entry-grid-item" @click="onRouter('/pages/share/share')">
+			<view class="entry-grid-item" @click="$onRouter('/pages/share/share')">
 				<image src="../../static/app_icon_5@2x.png" class="entry-grid-item-icon" mode=""></image>
 			    <text class="entry-grid-item-text">邀请好友</text>
 			</view>
-			<view class="entry-grid-item" @click="onRouter('')">
+			<view class="entry-grid-item" @click="$onRouter('')">
 				<image src="../../static/app_icon_8@2x.png" class="entry-grid-item-icon" mode=""></image>
 			    <text class="entry-grid-item-text">更多</text>
 			</view>
 		</view>
 		<view class="irregular-block">
-			<view class="irregular-block-left" @click="onRouter('/pages/suanli_supermarket/suanli_supermarket')">
+			<view class="irregular-block-left" @click="$onRouter('/pages/suanli_supermarket/suanli_supermarket')">
 				<image src="../../static/app_icon_4@2x.png" class="block-icon" mode=""></image>
 				<text class="block-text">算力超市</text>
 			</view>
 			<view class="irregular-block-center">
-				<view class="irregular-block-center-item" @click="onRouter('')">
+				<view class="irregular-block-center-item" @click="$onRouter('')">
 					<image src="../../static/app_icon_3@2x.png" class="block-icon" mode=""></image>
 					<text class="block-text">场外交易</text>
 				</view>
-				<view class="irregular-block-center-item" @click="onRouter('/pages/recharge_entry/recharge_entry')">
+				<view class="irregular-block-center-item" @click="$onRouter('/pages/recharge_entry/recharge_entry')">
 					<image src="../../static/app_icon_2@2x.png" class="block-icon" mode=""></image>
 					<text class="block-text">充币</text>
 				</view>
 			</view>
-			<view class="irregular-block-right" @click="onRouter('')">
+			<view class="irregular-block-right" @click="$onRouter('')">
 				<text class="block-text">看广告赢算力</text>
 			</view>
 		</view>
@@ -61,87 +67,30 @@
 		    <text class="main-title-text">矿池</text>
 			<image src="../../static/radius_rect@2x.png" class="main-title-rect" mode=""></image>
 		</view>
+		<view class="" v-if="pool_list && pool_list.length > 0">
+			<view class="card-item" v-for="item in pool_list" :key="item.id" @click="onRouter(item)">
+				<view class="card-item-header">
+					<view class="card-item-header-title">
+						<image :src="item.icon" class="card-item-header-icon" mode=""></image>
+					    <text class="card-item-header-title">{{item.name}}</text>
+					</view>
+					<view class="card-item-header-status">
+						<view class="card-item-header-status-dot" :class="item.status == 1 ? '' : 'red-status-dot'"></view>
+					    <text class="card-item-header-status">{{item.status == 1 ? '运行中': '停止运行'}}</text>
+					</view>
+				</view>
+				<view class="card-item-label">
+					<text class="card-item-label-text">日产出</text>
+					<text class="card-item-label-text">最高年化收益率</text>
+				</view>
+				<view class="card-item-value">
+					<text class="card-item-value-text"><text class="green-color">{{item.num}}</text>  SWA</text>
+					<text class="card-item-value-largetext green-color">{{item.scale}}%</text>
+				</view>
+			</view>
+		</view>
 		
-		<view class="card-item" @click="onRouter('')">
-			<view class="card-item-header">
-				<view class="card-item-header-title">
-					<image src="../../static/app_icon_13@2x.png" class="card-item-header-icon" mode=""></image>
-				    <text class="card-item-header-title">空投矿池</text>
-				</view>
-				<view class="card-item-header-status">
-					<view class="card-item-header-status-dot"></view>
-				    <text class="card-item-header-status">运行中</text>
-				</view>
-			</view>
-			<view class="card-item-label">
-				<text class="card-item-label-text">日产出</text>
-				<text class="card-item-label-text">最高年化收益率</text>
-			</view>
-			<view class="card-item-value">
-				<text class="card-item-value-text"><text class="green-color">0.00</text>  SWAPANT</text>
-				<text class="card-item-value-largetext green-color">188.18%</text>
-			</view>
-		</view>
-		<view class="card-item"  @click="onRouter('/pages/suanli_supermarket/suanli_supermarket')">
-			<view class="card-item-header">
-				<view class="card-item-header-title">
-					<image src="../../static/app_icon_11@2x.png" class="card-item-header-icon" mode=""></image>
-				    <text class="card-item-header-title">物理算力矿池</text>
-				</view>
-				<view class="card-item-header-status">
-					<view class="card-item-header-status-dot"></view>
-				    <text class="card-item-header-status">运行中</text>
-				</view>
-			</view>
-			<view class="card-item-label">
-				<text class="card-item-label-text">日产出</text>
-				<text class="card-item-label-text">最高年化收益率</text>
-			</view>
-			<view class="card-item-value">
-				<text class="card-item-value-text"><text class="green-color">0.00</text>  SWAPANT</text>
-				<text class="card-item-value-largetext green-color">188.18%</text>
-			</view>
-		</view>
-		<view class="card-item" @click="onRouter('/pages/orepool/orepool')">
-			<view class="card-item-header">
-				<view class="card-item-header-title">
-					<image src="../../static/app_icon_10@2x.png" class="card-item-header-icon" mode=""></image>
-				    <text class="card-item-header-title">流动性矿池</text>
-				</view>
-				<view class="card-item-header-status">
-					<view class="card-item-header-status-dot"></view>
-				    <text class="card-item-header-status">运行中</text>
-				</view>
-			</view>
-			<view class="card-item-label">
-				<text class="card-item-label-text">日产出</text>
-				<text class="card-item-label-text">最高年化收益率</text>
-			</view>
-			<view class="card-item-value">
-				<text class="card-item-value-text"><text class="green-color">0.00</text>  SWAPANT</text>
-				<text class="card-item-value-largetext green-color">188.18%</text>
-			</view>
-		</view>
-		<view class="card-item" @click="onRouter('')">
-			<view class="card-item-header">
-				<view class="card-item-header-title">
-					<image src="../../static/app_icon_12@2x.png" class="card-item-header-icon" mode=""></image>
-				    <text class="card-item-header-title">理财矿池</text>
-				</view>
-				<view class="card-item-header-status">
-					<view class="card-item-header-status-dot"></view>
-				    <text class="card-item-header-status">运行中</text>
-				</view>
-			</view>
-			<view class="card-item-label">
-				<text class="card-item-label-text">日产出</text>
-				<text class="card-item-label-text">最高年化收益率</text>
-			</view>
-			<view class="card-item-value">
-				<text class="card-item-value-text"><text class="green-color">0.00</text>  SWAPANT</text>
-				<text class="card-item-value-largetext green-color">188.18%</text>
-			</view>
-		</view>
+        <u-empty text="数据为空" v-else mode="list"></u-empty>
 	 </view>
 </template>
 
@@ -165,15 +114,17 @@
 				notice_info: {
 					id: 0,
 					title: ''
-				}
+				},
+				pool_list: []
 			}
 		},
 		async mounted() {
 			uni.showLoading();
-			const response = await services.homeIndex();
+			const [homeRes, poolRes] = await Promise.all([services.homeIndex(), services.poolIndex()]);
 			uni.hideLoading();
-			this.banner_list = response.banner_list;
-			this.notice_info = response.notice_info;
+			this.banner_list = homeRes.banner_list;
+			this.notice_info = homeRes.notice_info;
+			this.pool_list = poolRes;
 		},
 		methods: {
 			changeIndicatorDots(e) {
@@ -188,16 +139,21 @@
 			durationChange(e) {
 				this.duration = e.target.value
 			},
-			onRouter(url){
-				if (url === '') {
+			onRouter(item){
+				if (item.id === 1 || item.id === 4) {
 					uni.showToast({
 						icon: 'none',
 						title: '暂未开放'
 					})
-				} else {
+				} else if(item.id === 2) {
 					uni.navigateTo({
 						animationType:"pop-in",
-						url: url
+						url: '/pages/suanli_supermarket/suanli_supermarket'
+					})
+				} else if(item.id === 3) {
+					uni.navigateTo({
+						animationType:"pop-in",
+						url: `/pages/orepool/orepool?id=${item.id}`
 					})
 				}
 				
@@ -215,8 +171,8 @@
 			justify-content: flex-start;
 			align-items: center;
 			&-logo{
-				width: 49upx;
-				height: 62upx;
+				width: 200upx;
+				height: 64upx;
 			}
 			&-text{
 				font-size: 37.81upx;
@@ -229,10 +185,6 @@
 			.swiper-item{
 				padding: 0 25upx;
 				box-sizing: border-box;
-				.banner-item{
-					width: 100%;
-					height: 100%;
-				}
 			}
 		}
 		.notify-wrap{
@@ -393,8 +345,9 @@
 						border-radius: 15upx;
 						margin-right: 10upx;
 					}
-					
-					
+					.red-status-dot{
+						background-color: red;
+					}
 				}
 			}
 		    &-label{

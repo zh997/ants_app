@@ -19,57 +19,61 @@
 				</view>
 			</view>
 			<view class="miner-card">
-				<view class="miner-card-title">
-					套餐详情
+				<view class="miner-card-relative">
+					<view class="miner-card-title">
+						套餐详情
+					</view>
+					<view class="miner-card-item">
+						<view class="miner-card-item-label">
+							1、产出币种：
+						</view>
+						<view class="miner-card-item-value">
+							SWAPANT
+						</view>
+					</view>
+					<view class="miner-card-item">
+						<view class="miner-card-item-label">
+							2、矿机型号:
+						</view>
+						<view class="miner-card-item-value">
+							12-345
+						</view>
+					</view>
+					<view class="miner-card-item">
+						<view class="miner-card-item-label">
+							3、上架时间:
+						</view>
+						<view class="miner-card-item-value">
+							2021.06.30
+						</view>
+					</view>
+					<view class="miner-card-item">
+						<view class="miner-card-item-label">
+							4、有效算力：
+						</view>
+						<view class="miner-card-item-value">
+							150/h
+						</view>
+					</view>
+					<view class="miner-card-item">
+						<view class="miner-card-item-label">
+						  5、服务周期：
+						</view>
+						<view class="miner-card-item-value">
+							30天
+						</view>
+					</view>
+					<view class="miner-card-item">
+						<view class="miner-card-item-label">
+						6、技术服务费：
+						</view>
+						<view class="miner-card-item-value">
+								0
+						</view>
+					</view>
 				</view>
-				<view class="miner-card-item">
-					<view class="miner-card-item-label">
-						1、产出币种：
-					</view>
-					<view class="miner-card-item-value">
-						SWAPANT
-					</view>
-				</view>
-				<view class="miner-card-item">
-					<view class="miner-card-item-label">
-						2、矿机型号:
-					</view>
-					<view class="miner-card-item-value">
-						12-345
-					</view>
-				</view>
-				<view class="miner-card-item">
-					<view class="miner-card-item-label">
-						3、上架时间:
-					</view>
-					<view class="miner-card-item-value">
-						2021.06.30
-					</view>
-				</view>
-				<view class="miner-card-item">
-					<view class="miner-card-item-label">
-						4、有效算力：
-					</view>
-					<view class="miner-card-item-value">
-						150/h
-					</view>
-				</view>
-				<view class="miner-card-item">
-					<view class="miner-card-item-label">
-					  5、服务周期：
-					</view>
-					<view class="miner-card-item-value">
-						30天
-					</view>
-				</view>
-				<view class="miner-card-item">
-					<view class="miner-card-item-label">
-					6、技术服务费：
-					</view>
-					<view class="miner-card-item-value">
-							0
-					</view>
-				</view>
+				
+				<image src="../../static/miner_detail_bg.png" class="miner-card-bg" mode=""></image>
 			</view>
 			<view class="miner-card">
 				<view class="checkbox" @click="onAgree">
@@ -153,6 +157,19 @@
 		align-items: flex-start;
 		flex-direction: column;
 		margin-bottom: 39upx;
+		position: relative;
+		.miner-card-relative{
+			position: relative;
+			z-index: 1;
+		}
+		.miner-card-bg{
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 0;
+		}
 		.miner-avatar{
 			display: flex;
 			justify-content: flex-start;
@@ -165,6 +182,7 @@
 			.miner-name{
 				font-size: 22upx;
 				color: #fff;
+				margin-left: 20upx;
 			}
 		}
 		.miner-price{

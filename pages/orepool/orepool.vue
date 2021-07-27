@@ -6,10 +6,10 @@
 				<view class="card-item-header">
 					<view class="card-item-header-title">
 						<image src="../../static/app_icon_10@2x.png" class="card-item-header-icon" mode=""></image>
-					    <text class="card-item-header-title">高收益流动性矿池</text>
+					    <text class="card-item-header-title">{{poolDetail.name || '---'}}</text>
 						<view class="card-item-header-status">
 							<view class="card-item-header-status-dot"></view>
-						    <text class="card-item-header-status">运行中</text>
+						    <text class="card-item-header-status">{{poolDetail.status == 1 ? '运行中': '停止运行'}}</text>
 						</view>
 					</view>
 					<view class="card-item-header-btn" @click="$onRouter('/pages/swapant_orepool/swapant_orepool')">
@@ -21,8 +21,8 @@
 					<text class="card-item-label-text">最高年化收益率</text>
 				</view>
 				<view class="card-item-value">
-					<text class="card-item-value-text"><text class="green-color">0.00</text>  SWAPANT</text>
-					<text class="card-item-value-largetext green-color">188.18%</text>
+					<text class="card-item-value-text"><text class="green-color">{{poolDetail.num || '0.00'}}</text>  SWA</text>
+					<text class="card-item-value-largetext green-color">{{poolDetail.scale || '0.00'}}%</text>
 				</view>
 			</view>
 		</view>
@@ -32,14 +32,23 @@
 
 <script>
 	import Navbar from '@/components/navbar.vue';
+	import * as services from '@/ants/services/index.js';
 	export default {
 		components:{
 			Navbar
 		},
 		data() {
 			return {
-				
+				poolDetail: {}
 			};
+		},
+		async onLoad(option) {
+			uni.showLoading();
+			const res = await services.poolDetail({
+				id: Number(option.id)
+			});
+			uni.hideLoading();
+			this.poolDetail = res;
 		},
 		methods:{
 		}

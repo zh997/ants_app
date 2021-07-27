@@ -9,7 +9,7 @@
 				<view class="retrieve-form-item">
 					<!-- <view class="retrieve-form-item-label">提币数量</view> -->
 					<view class="retrieve-form-item-view">
-						<input type="text" value="" class="retrieve-form-item-input" placeholder="请输入取回数量" placeholder-class="placeholder-class"  />
+						<input type="text" v-model="swa_num" class="retrieve-form-item-input" placeholder="请输入取回SWAPANT数量" placeholder-class="placeholder-class"  />
 					</view>
 				</view>
 				<view class="retrieve-form-rowitem">
@@ -17,11 +17,27 @@
 						可取回 SWAPANT 
 					</view>
 					<view class="retrieve-form-item-label">
-					   0 
+					   {{poolGetbackView.pledge_swa}}
 					</view>
 				</view>
 			</view>
-			<view class="primary-btn">
+			<view class="retrieve-form">
+				<view class="retrieve-form-item">
+					<!-- <view class="retrieve-form-item-label">提币数量</view> -->
+					<view class="retrieve-form-item-view">
+						<input type="text" v-model="usdt_num" class="retrieve-form-item-input" placeholder="请输入取回USDT数量" placeholder-class="placeholder-class"  />
+					</view>
+				</view>
+				<view class="retrieve-form-rowitem">
+					<view class="retrieve-form-item-label">
+						可取回 USDT 
+					</view>
+					<view class="retrieve-form-item-label">
+					   {{poolGetbackView.pledge_usdt}}
+					</view>
+				</view>
+			</view>
+			<view class="primary-btn" @click="onSubmit">
 				取回
 			</view>
 		</view>
@@ -31,14 +47,56 @@
 
 <script>
 	import Navbar from '@/components/navbar.vue';
+	import * as services from '@/ants/services/index.js';
 	export default {
 		components:{
 			Navbar
 		},
 		data() {
 			return {
-				
+				poolGetbackView: {},
+				usdt_num: '',
+				swa_num: ''
 			};
+		},
+		async onLoad() {
+			uni.showLoading();
+			const res = await services.poolGetbackView();
+			uni.hideLoading();
+			this.poolGetbackView = res;
+		},
+		methods:{
+			async onSubmit() {
+				if (!this.swa_num){
+					return uni.showToast({
+						icon: 'none',
+						title: '请输入取回SWAPANT数量'
+					})
+				}
+				if (!this.usdt_num){
+					return uni.showToast({
+						icon: 'none',
+						title: '请输入取回USDT数量'
+					})
+				}
+				if (!/^[0-9]*[1-9][0-9]*$/.test(this.swa_num) || !/^[0-9]*[1-9][0-9]*$/.test(this.usdt_num)) {
+					return uni.showToast({
+						icon: 'none',
+						title: '请入大于0的正整数'
+					})
+				}
+				uni.showLoading({
+				  title: '取回中'	
+				})
+				const res = await services.poolGetback({
+					swa_num: this.swa_num,
+					swa_num: this.swa_num
+				});
+				uni.showToast({
+					icon: 'success',
+					title: '取回成功'
+				})
+			}
 		}
 	}
 </script>

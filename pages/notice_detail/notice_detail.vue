@@ -63,7 +63,7 @@
 		}
 		.notice-detail-line{
 			border-bottom: 1px dashed #000000;
-			margin: 50upx;
+			margin: 50upx 0;
 		}
 	}
 

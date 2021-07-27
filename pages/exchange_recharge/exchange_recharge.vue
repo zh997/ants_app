@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<Navbar title="兑换记录"/>
-		<view class="record-page">
+		<view class="record-page" v-if="recordList && recordList.length > 0">
 			<view class="record-item" v-for="item,index in recordList" :key="item.no">
 				<view class="record-item-row">
 					<view class="record-item-label">
@@ -37,6 +37,7 @@
 				</view>
 			</view>
 		</view>
+		<u-empty text="数据为空" v-else mode="list"></u-empty>
 		<view class="page-bg"></view>
 	</view>
 </template>

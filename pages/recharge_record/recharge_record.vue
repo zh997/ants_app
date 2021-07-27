@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<Navbar title="充币记录"/>
-		<view class="record-page">
+		<view class="record-page" v-if="walletRechargeRecord && walletRechargeRecord.length > 0">
 			<view class="record-item" v-for="item in walletRechargeRecord" :key="item.id">
 				<view class="record-item-row">
 					<view class="record-item-label">
@@ -29,6 +29,7 @@
 				</view>
 			</view>
 		</view>
+		<u-empty text="数据为空" v-else mode="list"></u-empty>
 		<view class="page-bg"></view>
 	</view>
 </template>

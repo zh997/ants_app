@@ -78,7 +78,7 @@
             "base" : ""
         },
         "devServer" : {
-            "https" : true
+            "https" : false
         }
     }
 }

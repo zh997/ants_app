@@ -3,7 +3,7 @@
 		<view class="status_bar"></view>
 	    <view class="register-header">
 	    	<image src="../../static/LOGO3@2x.png" class="register-header-logo" mode=""></image>
-	    	<text class="register-header-text">Swapant</text>
+	    	<!-- <text class="register-header-text">Swapant</text> -->
 	    </view>
 		<view class="register-title">
 			<view class="register-title-text">
@@ -153,8 +153,8 @@
 		justify-content: flex-start;
 		align-items: center;
 		&-logo{
-			width: 69upx;
-			height: 91upx;
+			width: 200upx;
+			height: 64upx;
 		}
 		&-text{
 			font-size: 37.81upx;

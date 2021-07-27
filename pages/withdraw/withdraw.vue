@@ -120,7 +120,7 @@
 				if (!/^[0-9]*[1-9][0-9]*$/.test(this.num)) {
 					return uni.showToast({
 						icon: 'none',
-						title: '请入正整数提币数量'
+						title: '请入大于0的正整数提币数量'
 					})
 				}
 				this.show = true;

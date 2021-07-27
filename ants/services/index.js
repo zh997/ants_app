@@ -153,3 +153,42 @@ export async function noticeDetail(data) {
 	return await request.send(api.notice_detail, 'POST',  data);
 }
 
+// 矿池列表
+export async function poolIndex(data) {
+	return await request.send(api.pool_index, 'POST',  data);
+}
+
+// 矿池详情
+export async function poolDetail(data) {
+	return await request.send(api.pool_detail, 'POST',  data);
+}
+
+// 质押页面
+export async function poolPledgeview(data) {
+	return await request.send(api.pool_pledgeview, 'POST',  data);
+}
+
+// 存储
+export async function poolPledge(data) {
+	return await request.send(api.pool_pledge, 'POST',  data);
+}
+
+// 存储页面
+export async function poolPledgeView(data) {
+	return await request.send(api.pool_pledge, 'GET',  data);
+}
+
+// 取回
+export async function poolGetback(data) {
+	return await request.send(api.pool_getback, 'POST',  data);
+}
+
+// 取回页面
+export async function poolGetbackView(data) {
+	return await request.send(api.pool_getback, 'GET',  data);
+}
+
+// 收取
+export async function poolDraw(data) {
+	return await request.send(api.pool_draw, 'POST',  data);
+}

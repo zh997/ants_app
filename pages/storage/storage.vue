@@ -9,7 +9,7 @@
 				<view class="storage-form-item">
 					<!-- <view class="storage-form-item-label">提币数量</view> -->
 					<view class="storage-form-item-view">
-						<input type="text" value="" class="storage-form-item-input" placeholder="请输入存储SWAPANT数量" placeholder-class="placeholder-class"  />
+						<input type="number" v-model="swa_num" class="storage-form-item-input" placeholder="请输入存储SWAPANT数量" placeholder-class="placeholder-class"  />
 					</view>
 				</view>
 				<view class="storage-form-rowitem">
@@ -17,18 +17,18 @@
 						SWAPANT 余额
 					</view>
 					<view class="storage-form-item-label">
-					   0 
+					   {{poolPledgeView.usdt_num}}
 					</view>
 				</view>
 			</view>
-			<view class="circle-btn">
+			<!-- <view class="circle-btn">
 				+
-			</view>
+			</view> -->
 			<view class="storage-form">
 				<view class="storage-form-item">
 					<!-- <view class="storage-form-item-label">提币数量</view> -->
 					<view class="storage-form-item-view">
-						<input type="text" value="" class="storage-form-item-input" placeholder="请输入存储USDT数量" placeholder-class="placeholder-class"  />
+						<input type="number" v-model="usdt_num" class="storage-form-item-input" placeholder="请输入存储USDT数量" placeholder-class="placeholder-class"  />
 					</view>
 				</view>
 				<view class="storage-form-rowitem">
@@ -36,11 +36,11 @@
 						USDT 余额
 					</view>
 					<view class="storage-form-item-label">
-					   0 
+					    {{poolPledgeView.usdt_num}}
 					</view>
 				</view>
 			</view>
-			<view class="primary-btn">
+			<view class="primary-btn" @click="onSubmit">
 				存储
 			</view>
 		</view>
@@ -50,14 +50,56 @@
 
 <script>
 	import Navbar from '@/components/navbar.vue';
+	import * as services from '@/ants/services/index.js';
 	export default {
 		components:{
 			Navbar
 		},
 		data() {
 			return {
-				
+				poolPledgeView: {},
+				usdt_num: '',
+				swa_num: ''
 			};
+		},
+		async onLoad() {
+			uni.showLoading();
+			const res = await services.poolPledgeView();
+			uni.hideLoading();
+			this.poolPledgeView = res;
+		},
+		methods:{
+			async onSubmit() {
+				if (!this.swa_num){
+					return uni.showToast({
+						icon: 'none',
+						title: '请输入存储SWAPANT数量'
+					})
+				}
+				if (!this.usdt_num){
+					return uni.showToast({
+						icon: 'none',
+						title: '请输入存储USDT数量'
+					})
+				}
+				if (!/^[0-9]*[1-9][0-9]*$/.test(this.swa_num) || !/^[0-9]*[1-9][0-9]*$/.test(this.usdt_num)) {
+					return uni.showToast({
+						icon: 'none',
+						title: '请入大于0的正整数'
+					})
+				}
+				showLoading({
+				  title: '存储中'	
+				})
+				const res = await services.poolPledge({
+					swa_num: this.swa_num,
+					swa_num: this.swa_num
+				});
+				uni.showToast({
+					icon: 'success',
+					title: '存储成功'
+				})
+			}
 		}
 	}
 </script>
