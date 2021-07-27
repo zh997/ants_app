@@ -2,14 +2,16 @@
 	<view>
 		<Navbar title="币种介绍"/>
 		<view class="currency-intro-page">
-			<view class="currency-intro-title">
+			<!-- <view class="currency-intro-title">
 				{{walletCoinDetail.title}}
 			</view>
 			<view class="currency-intro-abstract">
 				{{walletCoinDetail.abstract}}
-			</view>
+			</view> -->
 			<image :src="walletCoinDetail.cover" v-if="walletCoinDetail.cover" class="currency-intro-cover" mode=""></image>
-			<mpHtml :content="walletCoinDetail.content" class="mphtml"/>
+			<view class="u-content">
+				<u-parse :html="walletCoinDetail.content"></u-parse>
+			</view>
 		</view>
 		
 		<view class="page-bg"></view>
@@ -17,13 +19,11 @@
 </template>
 
 <script>
-	import mpHtml from '@/components/mp-html/mp-html'
 	import Navbar from '@/components/navbar.vue';
 	import * as services from '@/ants/services/index.js';
 	export default {
 		components:{
-			Navbar,
-			mpHtml
+			Navbar
 		},
 		data() {
 			return {

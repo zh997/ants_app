@@ -81,9 +81,13 @@
 			margin-left: 34upx;
 		}
 	}
-	.mphtml{
-		._span,.undefined{
-			color: #fff !important;
+	.u-content {
+		margin-top: 20rpx;
+		color: #fff;
+		font-size: 32rpx;
+		line-height: 1.8;
+		p,b,div,h1,h2,h3 {
+			color: #fff;
 		}
 	}
 	.u-empty{
