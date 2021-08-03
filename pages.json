@@ -149,7 +149,7 @@
             
         }
         ,{
-            "path" : "pages/swapant_orepool/swapant_orepool",
+            "path" : "pages/swapait_orepool/swapait_orepool",
             "style" :                                                                                    
             {
                  "navigationStyle": "custom",
@@ -307,6 +307,24 @@
             {
                 "navigationStyle": "custom",
 				"navigationBarTextStyle":"white"
+            }
+            
+        }
+        ,{
+            "path" : "pages/swa_question/swa_question",
+            "style" :                                                                                    
+            {
+               "navigationStyle": "custom",
+               "navigationBarTextStyle":"white"
+            }
+            
+        }
+        ,{
+            "path" : "pages/lease_agreement/lease_agreement",
+            "style" :                                                                                    
+            {
+               "navigationStyle": "custom",
+               "navigationBarTextStyle":"white"
             }
             
         }

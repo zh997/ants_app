@@ -4,7 +4,7 @@
 		<view class="share-poster-page">
 			<image src="../../static/share/share_poster_img@2x.png" class="share-poster-img" mode=""></image>
 		    <view class="share-poster-title green-color">
-		    	邀您注册Swapant
+		    	邀您注册swapait
 		    </view>
 			<view class="share-poster-tips">
 				FIL矿池——可以随存随取随时得收益

@@ -71,6 +71,24 @@
 				})
 			},
 			async onSubmit(){
+				if (!this.account.trim()){
+					return uni.showToast({
+						icon: 'none',
+						title: '邮箱不能为空'
+					})
+				}
+				if (!/^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/.test(this.account)){
+					return uni.showToast({
+						icon: 'none',
+						title: '邮箱格式错误，请重新输入'
+					})
+				}
+				if (!this.password.trim()){
+					return uni.showToast({
+						icon: 'none',
+						title: '密码不能为空'
+					})
+				}
 				const data = {
 					account: this.account,
 					password: this.password,

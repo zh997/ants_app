@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<Navbar title="SWAPANT邀请注册"/>
+		<Navbar title="swapait邀请注册"/>
 		<view class="share-register-page">
 			<image src="../../static/share/share_poster_img@2x.png" class="share-register-img" mode=""></image>
 		    <view class="share-register-title green-color">

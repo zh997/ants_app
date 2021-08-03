@@ -3,18 +3,18 @@
 		<Navbar title="存储"/>
 		<view class="storage-page">
 			<view class="storage-title">
-				SWAPANT-USDT
+				swapait-USDT
 			</view>
 			<view class="storage-form">
 				<view class="storage-form-item">
 					<!-- <view class="storage-form-item-label">提币数量</view> -->
 					<view class="storage-form-item-view">
-						<input type="number" v-model="swa_num" class="storage-form-item-input" placeholder="请输入存储SWAPANT数量" placeholder-class="placeholder-class"  />
+						<input type="number" v-model="swa_num" class="storage-form-item-input" placeholder="请输入存储swapait数量" placeholder-class="placeholder-class"  />
 					</view>
 				</view>
 				<view class="storage-form-rowitem">
 					<view class="storage-form-item-label">
-						SWAPANT 余额
+						swapait 余额
 					</view>
 					<view class="storage-form-item-label">
 					   {{poolPledgeView.usdt_num}}
@@ -73,7 +73,7 @@
 				if (!this.swa_num){
 					return uni.showToast({
 						icon: 'none',
-						title: '请输入存储SWAPANT数量'
+						title: '请输入存储swapait数量'
 					})
 				}
 				if (!this.usdt_num){

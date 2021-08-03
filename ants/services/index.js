@@ -192,3 +192,28 @@ export async function poolGetbackView(data) {
 export async function poolDraw(data) {
 	return await request.send(api.pool_draw, 'POST',  data);
 }
+
+// swapait问题
+export async function poolQuestion(data) {
+	return await request.send(api.pool_question, 'POST',  data);
+}
+
+// 算力超市
+export async function machineIndex(data) {
+	return await request.send(api.machine_index, 'POST',  data);
+}
+
+// 矿机详情
+export async function machineDetail(data) {
+	return await request.send(api.machine_detail, 'POST',  data);
+}
+
+// 租赁协议
+export async function machineRentRule(data) {
+	return await request.send(api.machine_rent_rule, 'POST',  data);
+}
+
+// 矿机购买
+export async function machineRentPay(data) {
+	return await request.send(api.machine_rent_pay, 'POST',  data);
+}

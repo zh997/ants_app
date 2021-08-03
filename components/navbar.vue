@@ -2,8 +2,13 @@
 	<view class="">
 		<view class="status_bar"></view>
 		<view class="navbar-container">
-			<image src="../static/navbar_back_icon@2x.png" @click="onGoBack" class="navbar-back" mode=""></image>
-			<text class="navbar-title">{{title}}</text>
+			<view class="left-wrap">
+				<image src="../static/navbar_back_icon@2x.png" @click="onGoBack" class="navbar-back" mode=""></image>
+				<text class="navbar-title">{{title}}</text>
+			</view>
+			<view class="right-content" @click="clickRight">
+				{{sufix}}
+			</view>
 		</view>
 	</view>
 </template>
@@ -15,6 +20,10 @@
 			title: {
 				type: String,
 				default:''
+			},
+			sufix: {
+				type: String,
+				default: ''
 			}
 		},
 		data() {
@@ -27,6 +36,9 @@
 				uni.navigateBack({
 					delta: 1
 				})
+			},
+			clickRight(){
+				this.$emit('clickRight')
 			}
 		}
 	}
@@ -37,7 +49,7 @@
 .navbar-container{
 	padding: 34upx;
 	display: flex;
-	justify-content: flex-start;
+	justify-content: space-between;
 	align-items: center;
 	.navbar-back{
 		width: 22upx;
@@ -47,6 +59,15 @@
 		font-size: 37.54upx;
 		color: #fff;
 		margin-left: 85upx;
+	}
+	.left-wrap{
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+	}
+	.right-content{
+		color: #fff;
+		font-size: 24upx;
 	}
 }
 </style>

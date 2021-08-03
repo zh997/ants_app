@@ -3,7 +3,7 @@
 		<view class="status_bar"></view>
 	 	<view class="index-header">
 	 		<image src="../../static/LOGO3@2x.png" class="index-header-logo" mode=""></image>
-			<!-- <text class="index-header-text">Swapant</text> -->
+			<!-- <text class="index-header-text">swapait</text> -->
 	 	</view>
 		
 		<swiper class="swiper-wrap" v-if="banner_list && banner_list.length > 0" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">

@@ -3,18 +3,18 @@
 		<Navbar title="取回"/>
 		<view class="retrieve-page">
 			<view class="retrieve-title">
-				SWAPANT-USDT
+				swapait-USDT
 			</view>
 			<view class="retrieve-form">
 				<view class="retrieve-form-item">
 					<!-- <view class="retrieve-form-item-label">提币数量</view> -->
 					<view class="retrieve-form-item-view">
-						<input type="text" v-model="swa_num" class="retrieve-form-item-input" placeholder="请输入取回SWAPANT数量" placeholder-class="placeholder-class"  />
+						<input type="text" v-model="swa_num" class="retrieve-form-item-input" placeholder="请输入取回swapait数量" placeholder-class="placeholder-class"  />
 					</view>
 				</view>
 				<view class="retrieve-form-rowitem">
 					<view class="retrieve-form-item-label">
-						可取回 SWAPANT 
+						可取回 swapait 
 					</view>
 					<view class="retrieve-form-item-label">
 					   {{poolGetbackView.pledge_swa}}
@@ -70,7 +70,7 @@
 				if (!this.swa_num){
 					return uni.showToast({
 						icon: 'none',
-						title: '请输入取回SWAPANT数量'
+						title: '请输入取回swapait数量'
 					})
 				}
 				if (!this.usdt_num){

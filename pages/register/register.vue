@@ -3,11 +3,11 @@
 		<view class="status_bar"></view>
 	    <view class="register-header">
 	    	<image src="../../static/LOGO3@2x.png" class="register-header-logo" mode=""></image>
-	    	<!-- <text class="register-header-text">Swapant</text> -->
+	    	<!-- <text class="register-header-text">swapait</text> -->
 	    </view>
 		<view class="register-title">
 			<view class="register-title-text">
-				Swapant
+				swapait
 			</view>
 			<view class="register-title-tip">
 				挖矿、nft、defi 投顾乐园
@@ -20,23 +20,23 @@
 			<view class="register-form-item">
 				<input type="text"
 				    v-model="email"
-					placeholder="请填写邮箱地址" 
+					placeholder="请输入邮箱地址" 
 					placeholder-class="placeholder-class" 
 					class="register-form-item-input" 
 				/>
 				<text class="register-form-item-sufix"></text>
 			</view>
 			<view class="register-form-item">
-				<input type="text" v-model="password"
-					placeholder="请填写登陆密码" 
+				<input type="password" v-model="password"
+					placeholder="请输入登陆密码" 
 					placeholder-class="placeholder-class" 
 					class="register-form-item-input" 
 				/>
 				<text class="register-form-item-sufix"></text>
 			</view>
 			<view class="register-form-item">
-				<input type="text" v-model="password_confirm"
-					placeholder="请确认登陆密码" 
+				<input type="password" v-model="password_confirm"
+					placeholder="请确认登录密码" 
 					placeholder-class="placeholder-class" 
 					class="register-form-item-input" 
 				/>
@@ -44,7 +44,7 @@
 			</view>
 			<view class="register-form-item">
 				<input type="text" v-model="code"
-					placeholder="请填写邮箱验证码" 
+					placeholder="请输入邮箱验证码" 
 					placeholder-class="placeholder-class" 
 					class="register-form-item-input" 
 				/>
@@ -96,6 +96,42 @@
 				})
 			},
 			async onSubmit() {
+				if (!this.email.trim()){
+					return uni.showToast({
+						icon: 'none',
+						title: '邮箱不能为空'
+					})
+				}
+				if (!/^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/.test(this.email)){
+					return uni.showToast({
+						icon: 'none',
+						title: '邮箱格式错误，请重新输入'
+					})
+				}
+				if (!this.password.trim()){
+					return uni.showToast({
+						icon: 'none',
+						title: '密码不能为空'
+					})
+				}
+				if (!this.password_confirm.trim()){
+					return uni.showToast({
+						icon: 'none',
+						title: '确认密码不能为空'
+					})
+				}
+				if (this.password_confirm !== this.password){
+					return uni.showToast({
+						icon: 'none',
+						title: '密码与确认密码不一致'
+					})
+				}
+				if (!this.code.trim()){
+					return uni.showToast({
+						icon: 'none',
+						title: '请输入验证码'
+					})
+				}
 				const data = {
 					email: this.email,
 					password: this.password,

@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<Navbar title="流动性矿池"/>
+		<Navbar title="流动性矿池" sufix="swapait问题" @clickRight="$onRouter('/pages/swa_question/swa_question')"/>
 		<view class="orepool-page">
 			<view class="card-item">
 				<view class="card-item-header">
@@ -12,7 +12,7 @@
 						    <text class="card-item-header-status">{{poolDetail.status == 1 ? '运行中': '停止运行'}}</text>
 						</view>
 					</view>
-					<view class="card-item-header-btn" @click="$onRouter('/pages/swapant_orepool/swapant_orepool')">
+					<view class="card-item-header-btn" @click="$onRouter('/pages/swapait_orepool/swapait_orepool')">
 						立即质押
 					</view>
 				</view>

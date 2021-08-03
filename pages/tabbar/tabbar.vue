@@ -35,7 +35,7 @@
 					{
 						icon: require('../../static/tabbar_icon1@2x.png'),
 						selected_icon: require('../../static/tabbar_icon1_selected@2x.png'),
-						text: 'SWAPANT',
+						text: 'swapait',
 						path: '/pages/index/index'
 					},
 					{

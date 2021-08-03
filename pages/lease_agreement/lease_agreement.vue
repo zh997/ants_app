@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<Navbar title="公告详情"/>
+		<Navbar title="租赁协议"/>
 		<view class="notice-detail-page">
 			 <view class="notice-detail-title">
 			 	{{detail.title}}
@@ -36,7 +36,7 @@
 		},
 		async onLoad(options) {
 			uni.showLoading();
-			const response = await services.noticeDetail({id: options.id});
+			const response = await services.machineRentRule();
 			uni.hideLoading();
 			this.detail = response;
 		}

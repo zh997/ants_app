@@ -8,7 +8,7 @@
 						矿池总产量
 					</view>
 					<view class="suanli-supermarket-item-count green-color">
-						1000
+						{{detail.total_output || 0.00}}
 					</view>
 				</view>
 				<view class="suanli-supermarket-item">
@@ -16,15 +16,15 @@
 						昨日产量
 					</view>
 					<view class="suanli-supermarket-item-count green-color">
-						61388.000
+					    {{detail.yesday_output || 0.00}}
 					</view>
 				</view>
 				<view class="suanli-supermarket-item">
 					<view class="suanli-supermarket-item-title">
-						昨日消耗Swapant
+						昨日消耗swapait
 					</view>
 					<view class="suanli-supermarket-item-count green-color">
-						61388.000
+						 {{detail.yesday_money || 0.00}}
 					</view>
 				</view>
 				<view class="suanli-supermarket-item">
@@ -32,58 +32,44 @@
 						有效算力单T产量
 					</view>
 					<view class="suanli-supermarket-item-count green-color">
-						61388.000
+						{{detail.enable_power || 0.00}}
 					</view>
 				</view>
 			</view>
-			<view class="switch-bar-container">
-				<view class="switch-bar-item switch-bar-selected-item">
-					CHIA
-				</view>
-				<view class="switch-bar-item">
-					Swapant
-				</view>
-			</view>
-			<view class="card-item" @click="onRouter('/pages/miner_detail/miner_detail')">
-				<view class="card-item-header">
-					<view class="card-item-header-title">
-						<image src="../../static/app_icon_13@2x.png" class="card-item-header-icon" mode=""></image>
-					    <text class="card-item-header-title">SWAPANT</text>
-					</view>
-					<view class="card-item-header-status">
-						<view class="card-item-header-status-dot"></view>
-					    <text class="card-item-header-status">出售中</text>
-					</view>
-				</view>
-				<view class="card-item-label">
-					<text class="card-item-label-text">今日产出(Swapant)</text>
-					<text class="card-item-label-text">价格(USDT)</text>
-				</view>
-				<view class="card-item-value">
-					<text class="card-item-value-text"><text class="green-color">180.00</text></text>
-					<text class="card-item-value-largetext green-color">80.00</text>
+			<view class="switch-bar-container" v-if="machine_data_list && machine_data_list.length > 0">
+				<view class="switch-bar-item" 
+				v-for="item in machine_data_list" 
+				:key="item.type_id" 
+				:class="item.type_id === type_id ? 'switch-bar-selected-item' : ''"
+				@click="onSwitchType(item.type_id)"
+				>
+					{{item.type_name || '---'}}
 				</view>
 			</view>
-			<view class="card-item"  @click="onRouter('/pages/miner_detail/miner_detail')">
-				<view class="card-item-header">
-					<view class="card-item-header-title">
-						<image src="../../static/app_icon_13@2x.png" class="card-item-header-icon" mode=""></image>
-					    <text class="card-item-header-title">SWAPANT</text>
+			<view class="" v-if="type_miner_list && type_miner_list.length > 0">
+				<view class="card-item" v-for="item in type_miner_list" :key="item.id" @click="$onRouter(`/pages/miner_detail/miner_detail?id=${item.id}`)">
+					<view class="card-item-header">
+						<view class="card-item-header-title">
+							<image :src="item.icon" class="card-item-header-icon" mode=""></image>
+						    <text class="card-item-header-title">{{item.name || '---'}}</text>
+						</view>
+						<view class="card-item-header-status">
+							<view class="card-item-header-status-dot" :class="item.is_buy === 1 ? '': 'blue-dot'"></view>
+						    <text class="card-item-header-status">{{item.is_buy === 1 ? '出售中' : '已售罄'}}</text>
+						</view>
 					</view>
-					<view class="card-item-header-status">
-						<view class="card-item-header-status-dot blue-dot"></view>
-					    <text class="card-item-header-status">已售罄</text>
+					<view class="card-item-label">
+						<text class="card-item-label-text">今日产出（{{item.symbol}})</text>
+						<text class="card-item-label-text">价格</text>
 					</view>
-				</view>
-				<view class="card-item-label">
-					<text class="card-item-label-text">今日产出(Swapant)</text>
-					<text class="card-item-label-text">价格(USDT)</text>
-				</view>
-				<view class="card-item-value">
-					<text class="card-item-value-text"><text class="green-color">180.00</text></text>
-					<text class="card-item-value-largetext green-color">80.00</text>
+					<view class="card-item-value">
+						<text class="card-item-value-text"><text class="green-color">{{item.output || '0.00'}}</text></text>
+						<text class="card-item-value-largetext green-color">{{item.money || '0.00'}}</text>
+					</view>
 				</view>
 			</view>
+			<u-empty text="数据为空" v-else mode="list"></u-empty>
+			
 		</view>
 		<view class="page-bg"></view>
 	</view>
@@ -91,21 +77,35 @@
 
 <script>
 	import Navbar from '@/components/navbar.vue';
+	import * as services from '@/ants/services/index.js';
 	export default {
 		components:{
 			Navbar
 		},
 		data() {
 			return {
-				
+				detail: {},
+				type_id: 0,
+				type_miner_list: [],
+				machine_data_list: []
 			};
 		},
+		async onLoad() {
+			uni.showLoading();
+			const response = await services.machineIndex();
+			uni.hideLoading();
+			this.detail = response;
+			if (response.machine_data_list.length) {
+				this.machine_data_list = response.machine_data_list;
+				this.type_id = response.machine_data_list[0].type_id;
+				this.type_miner_list = response.machine_data_list[0].data_list;
+			}
+		},
 		methods:{
-			onRouter(path){
-				uni.navigateTo({
-					animationType: "pop-in",
-					url: path
-				})
+			onSwitchType(type_id) {
+				const type_miner =  this.detail.machine_data_list.find(item => item.type_id === type_id );
+				this.type_id = type_id;
+				this.type_miner_list = type_miner.data_list;
 			}
 		}
 	}
@@ -172,7 +172,7 @@
 		box-sizing: border-box;
 		&-header{
 			display: flex;
-			justify-content: flex-start;
+			justify-content: space-between;
 			align-items: center;
 			margin-bottom: 52upx;
 			&-title{

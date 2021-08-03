@@ -4,17 +4,17 @@
 		<view class="miner-page">
 			<view class="miner-card">
 				<view class="miner-avatar">
-					<image src="../../static/app_icon_33@2x.png" class="miner-avatar-img" mode=""></image>
+					<image :src="detail.icon" class="miner-avatar-img" mode=""></image>
 					<view class="miner-name">
-						SWAPANT 物理节点
+						{{detail.name || '---'}}
 					</view>
 				</view>
 				<view class="miner-price">
 					<view class="miner-price-label">
-						价格(USDT)
+						价格（USDT）
 					</view>
 					<view class="miner-price-value">
-						180.00
+						{{detail.money || '0.00'}}
 					</view>
 				</view>
 			</view>
@@ -28,7 +28,7 @@
 							1、产出币种：
 						</view>
 						<view class="miner-card-item-value">
-							SWAPANT
+							{{detail.symbol}}
 						</view>
 					</view>
 					<view class="miner-card-item">
@@ -36,7 +36,7 @@
 							2、矿机型号:
 						</view>
 						<view class="miner-card-item-value">
-							12-345
+							{{detail.type}}
 						</view>
 					</view>
 					<view class="miner-card-item">
@@ -44,7 +44,7 @@
 							3、上架时间:
 						</view>
 						<view class="miner-card-item-value">
-							2021.06.30
+							{{detail.addtime}}
 						</view>
 					</view>
 					<view class="miner-card-item">
@@ -52,7 +52,7 @@
 							4、有效算力：
 						</view>
 						<view class="miner-card-item-value">
-							150/h
+							{{detail.power}}
 						</view>
 					</view>
 					<view class="miner-card-item">
@@ -60,7 +60,7 @@
 						  5、服务周期：
 						</view>
 						<view class="miner-card-item-value">
-							30天
+						{{detail.weekday}}
 						</view>
 					</view>
 					<view class="miner-card-item">
@@ -68,7 +68,7 @@
 						6、技术服务费：
 						</view>
 						<view class="miner-card-item-value">
-								0
+							{{detail.dev_fee}}
 						</view>
 					</view>
 				</view>
@@ -80,7 +80,7 @@
 					<view class="checkbox-btn" v-if="!isAgree"></view>
 					<image src="../../static/icon_agree@2x.png" v-else class="icon_agree" mode=""></image>
 					<view class="checkbox-text">
-						我已阅读并同意《算力租赁/购买协议》
+						我已阅读并同意<text @click.stop="$onRouter('/pages/lease_agreement/lease_agreement')">《算力租赁/购买协议》</text>
 					</view>
 				</view>
 				<view class="miner-card-ordercount">
@@ -92,7 +92,7 @@
 						<view class="inputnumber-sub" @click="subCount">
 							-
 						</view>
-						<input type="text" value="" class="inputnumber-input" v-model="count"  />
+						<input type="text" value="" class="inputnumber-input" v-model="num"  />
 						<view class="inputnumber-add" @click="addCount">
 							+
 						</view>
@@ -103,11 +103,12 @@
 						订单总额
 					</view>
 					<view class="miner-card-by-value">
-						180 USDT
+						{{totalPrice}} USDT
 					</view>
-					<view class="miner-card-by-btn">
-						立即购买
-					</view>
+				
+				</view>
+				<view class="miner-card-by-btn" @click="onBuy">
+					立即购买
 				</view>
 			</view>
 		</view>
@@ -117,6 +118,8 @@
 
 <script>
 	import Navbar from '@/components/navbar.vue';
+	import Decimal from '@/ants/utils/decimal.js';
+	import * as services from '@/ants/services/index.js';
 	export default {
 		components: {
 			Navbar
@@ -124,21 +127,52 @@
 		data() {
 			return {
 				isAgree: false,
-				count: 1
+				num: 1,
+				detail: {
+					money: 0
+				}
 			};
+		},
+		computed:{
+			totalPrice(){
+				const price = new Decimal(Number(this.detail.money));
+				return price.mul(Number(this.num));
+			}
+		},
+		async onLoad(options) {
+			uni.showLoading();
+			const response = await services.machineDetail({id: options.id});
+			uni.hideLoading();
+			this.detail = response;
 		},
 		methods: {
 			onAgree(){
 				this.isAgree = !this.isAgree
 			},
 			subCount(){
-				if (this.count > 1) {
-					this.count -= 1;
+				if (this.num > 1) {
+					this.num -= 1;
 				}
-				
 			},
 			addCount(){
-				this.count += 1;
+				this.num += 1;
+			},
+			async onBuy() {
+				if(!this.isAgree) return uni.showToast({
+					icon: 'none',
+					title: '请勾选《算力租赁/购买协议》'
+				})
+				uni.showLoading({
+				  title: '购买中'	
+				})
+				const res = await services.machineRentPay({
+					num: this.num,
+					id: this.detail.id
+				});
+				uni.showToast({
+					icon: 'success',
+					title: '购买成功'
+				})
 			}
 		}
 	}
@@ -286,10 +320,11 @@
 				color: #1EF0A9;
 			}
 			&-btn{
-				width: 305upx;
+				width: 100%;
+				margin-top: 30upx;
 				color: #fff;
 				font-size: 32upx;
-				height: 59upx;
+				height: 80upx;
 				border-radius: 59upx;
 				background-color: @color-1EF0A9;
 				display: flex;
